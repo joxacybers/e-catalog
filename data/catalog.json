@@ -1,0 +1,62 @@
+{
+  "settings": {
+    "companyNameUz": "E-Catalog",
+    "companyNameRu": "E-Catalog",
+    "logoUrl": "",
+    "subtitleUz": "Ulgurji elektron katalog",
+    "subtitleRu": "Оптовый электронный каталог",
+    "phonePrimary": "+998 90 123 45 67",
+    "phoneSecondary": "+998 99 765 43 21",
+    "telegramUsername": "toza_optom_uz",
+    "telegramChannel": "toza_optom_catalog",
+    "addressUz": "Toshkent sh., Sergeli tumani, O‘zgarish ulgurji bozori yonida, 4-ombor",
+    "addressRu": "г. Ташкент, Сергелийский район, возле оптового рынка Узгариш, склад №4",
+    "workingHoursUz": "Dushanba – Shanba: 08:00 dan 18:00 gacha",
+    "workingHoursRu": "Понедельник – Суббота: с 08:00 до 18:00",
+    "minOrderNoteUz": "Saytda ko‘rsatilgan barcha narxlar ulgurji narxlar bo‘lib, ro‘yxatdan o‘tishsiz hamma uchun ochiq. Ombordan yuklab berish hamda hududlarga yetkazib berish shartlarini telefon yoki Telegram orqali aniqlashtirishingiz mumkin.",
+    "minOrderNoteRu": "Все указанные на сайте цены являются оптовыми и открыты без регистрации. Условия отгрузки со склада и доставки в регионы можно уточнить по телефону или в Telegram.",
+    "adminPin": "1234"
+  },
+  "categories": [
+    {
+      "id": "cat-1794799084416",
+      "slug": "uy-tozalash-vositalari-maishiy-kimyo",
+      "nameUz": "Uy tozalash vositalari / Maishiy kimyo",
+      "nameRu": "Средства для уборки / Бытовая химия",
+      "descriptionUz": "Uy, oshxona, pol va oynalarni tozalash uchun barcha vositalar — belizna, tozalash kukunlari, lattalar va salfetkalar. Ulgurji narxlarda.",
+      "descriptionRu": "Всё для уборки дома, кухни, пола и стёкол — белизна, чистящие порошки, тряпки и салфетки. По оптовым ценам.",
+      "icon": "sparkles",
+      "sortOrder": 1
+    }
+  ],
+  "products": [
+    {
+      "id": "prod-1794799367010",
+      "slug": "belizna-maya-max-lemon-1-litr",
+      "sku": "BLZ-MAYA-1000",
+      "categoryId": "cat-1794799084416",
+      "nameUz": "Belizna Maya MAX Lemon - 1 litr",
+      "nameRu": "Белизна Maya MAX Lemon - 1 литр",
+      "descriptionUz": "Kiyim va yuzalarni oqartirish va tozalash uchun. Limon hidi bilan. Dog'larni ketkazadi, matoni oqartiradi, yoqimsiz hidni yo'qotadi. Uy va professional tozalash uchun mos.",
+      "descriptionRu": "Для отбеливания и очистки одежды и поверхностей. С ароматом лимона. Удаляет пятна, отбеливает ткань, устраняет неприятный запах. Подходит для дома и профессиональной уборки.",
+      "unitPrice": 5000,
+      "packPrice": 30000,
+      "packQuantity": 6,
+      "unitNameUz": "Dona",
+      "unitNameRu": "бутылка",
+      "packTypeUz": "blok",
+      "packTypeRu": "блок",
+      "inStock": true,
+      "stockPacks": 20,
+      "lowStockThreshold": 20,
+      "isNew": true,
+      "isFeatured": false,
+      "isSpecialOffer": false,
+      "images": [
+        "https://scontent.xx.fbcdn.net/v/t39.105495-1/912327672_3195396780656829_4827854353152220710_n.webp?_nc_ht=scontent.xx.fbcdn.net&_nc_cat=109&_nc_ohc=MThddmCh6FAQ7kNvwFLiIpd&sdl=0&ccb=14-4&oh=00_AQTehL-rHNY9p_65OVcB6c7Ja48Ovx550ALUJJAnhj2taQ&oe=6B0045CE&_nc_sid=a21977"
+      ],
+      "specs": [],
+      "updatedAt": "2026-11-16T03:22:47.010Z"
+    }
+  ]
+}
