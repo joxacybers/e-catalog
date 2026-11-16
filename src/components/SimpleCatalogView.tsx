@@ -122,144 +122,138 @@ export function SimpleCatalogView({
   };
 
   return (
-    <div className="mx-auto max-w-7xl px-3 py-4 sm:px-6 sm:py-6 space-y-4 sm:space-y-5">
-      {/* Compact M3 Tonal Header Strip */}
-      <section className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 rounded-[20px] sm:rounded-[24px] bg-[#edf2fa] p-4 sm:px-6 sm:py-5">
-        <div className="space-y-1">
-          <h1 className="text-lg sm:text-2xl font-semibold tracking-tight text-[#1f1f1f]">
-            {t.catalog.title}
-          </h1>
-          <p className="text-xs text-[#444746] sm:text-sm">
-            {products.length} {lang === 'uz' ? 'xil mahsulot' : 'видов товаров'} •{' '}
-            {inStockCount} {lang === 'uz' ? 'turi omborda' : 'в наличии'} •{' '}
-            <strong className="text-[#0b57d0]">
-              {formatNumber(totalPacks)}+ {lang === 'uz' ? 'qadoq mavjud' : 'упаковок на складе'}
-            </strong>
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2">
+    <div className="mx-auto max-w-7xl px-3 py-3 sm:px-6 sm:py-5 space-y-3.5 sm:space-y-4">
+      {/* Search Input - Clean & Prominent */}
+      <div className="relative w-full">
+        <M3Icon
+          name="search"
+          className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#444746] text-[20px]"
+        />
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder={t.nav.searchPlaceholder}
+          className="h-11 sm:h-12 w-full rounded-full bg-white border border-[#c4c7c5]/70 pl-11 pr-10 text-xs sm:text-sm text-[#1f1f1f] placeholder:text-[#747775] shadow-2xs focus:bg-white focus:border-[#0b57d0] focus:ring-2 focus:ring-[#0b57d0]/20 focus:outline-none transition-all"
+        />
+        {searchQuery && (
           <button
             type="button"
-            onClick={() => router.push('/price-list')}
-            className="inline-flex items-center gap-1.5 sm:gap-2 h-9 sm:h-10 px-3.5 sm:px-4 rounded-full bg-[#c2e7ff] text-[#001d35] hover:bg-[#b0dcf5] active:scale-95 text-xs sm:text-sm font-semibold transition-all cursor-pointer shadow-2xs"
+            onClick={() => setSearchQuery('')}
+            className="absolute right-3 top-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-full text-[#747775] hover:bg-[#edf2fa] active:scale-90 transition-all cursor-pointer"
           >
-            <M3Icon name="table_chart" className="text-[17px] sm:text-[18px]" />
-            <span>{t.nav.priceList}</span>
+            <M3Icon name="close" className="text-[18px]" />
           </button>
-        </div>
-      </section>
-
-      {/* M3 Category Filter Chips with Smooth Edge-to-Edge Scroll on Mobile */}
-      <div className="-mx-3 px-3 sm:mx-0 sm:px-0 overflow-x-auto no-scrollbar pb-1">
-        <md-chip-set>
-          <md-filter-chip
-            label={`${t.catalog.allCategories} (${products.length})`}
-            selected={selectedCategory === 'all'}
-            onClick={(e) => {
-              e.preventDefault();
-              setSelectedCategory('all');
-            }}
-          />
-          {categories.map((cat) => {
-            const count = products.filter((p) => p.categoryId === cat.id).length;
-            return (
-              <md-filter-chip
-                key={cat.id}
-                label={`${l(lang, cat.nameUz, cat.nameRu)} (${count})`}
-                selected={selectedCategory === cat.id}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory(cat.id);
-                }}
-              />
-            );
-          })}
-        </md-chip-set>
+        )}
       </div>
 
-      {/* Compact M3 Toolbar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-[20px] border border-[#c4c7c5]/60 bg-white p-3 shadow-2xs">
-        <div className="flex flex-1 flex-wrap items-center gap-2.5 sm:gap-3">
-          {/* Search Input */}
-          <div className="relative w-full sm:w-auto sm:min-w-[220px] sm:flex-1 sm:max-w-md">
-            <M3Icon
-              name="search"
-              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[#444746]"
-            />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={t.nav.searchPlaceholder}
-              className="h-10 w-full rounded-full bg-[#f3f6fc] pl-10 pr-9 text-xs sm:text-sm text-[#1f1f1f] placeholder:text-[#444746] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0b57d0] transition-colors"
-            />
-            {searchQuery && (
+      {/* M3 Category Filter Chips with Smooth Edge-to-Edge Scroll on Mobile */}
+      <div className="-mx-3 px-3 sm:mx-0 sm:px-0 overflow-x-auto no-scrollbar">
+        <div className="flex items-center gap-1.5 sm:gap-2 pb-0.5">
+          <button
+            type="button"
+            onClick={() => setSelectedCategory('all')}
+            className={`h-8 px-3.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all active:scale-95 cursor-pointer border ${
+              selectedCategory === 'all'
+                ? 'bg-[#c2e7ff] text-[#001d35] border-[#7fcfff] shadow-2xs'
+                : 'bg-white text-[#444746] border-[#c4c7c5]/60 hover:bg-[#f3f6fc]'
+            }`}
+          >
+            {t.catalog.allCategories} ({products.length})
+          </button>
+          {categories.map((cat) => {
+            const count = products.filter((p) => p.categoryId === cat.id).length;
+            const isSelected = selectedCategory === cat.id;
+            return (
               <button
+                key={cat.id}
                 type="button"
-                onClick={() => setSearchQuery('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 flex h-6 w-6 items-center justify-center rounded-full text-[#747775] hover:bg-[#e0e2ec] cursor-pointer"
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`h-8 px-3.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all active:scale-95 cursor-pointer border ${
+                  isSelected
+                    ? 'bg-[#c2e7ff] text-[#001d35] border-[#7fcfff] shadow-2xs'
+                    : 'bg-white text-[#444746] border-[#c4c7c5]/60 hover:bg-[#f3f6fc]'
+                }`}
               >
-                <M3Icon name="close" className="text-[16px]" />
+                {l(lang, cat.nameUz, cat.nameRu)} ({count})
               </button>
-            )}
-          </div>
+            );
+          })}
+        </div>
+      </div>
 
-          <div className="flex items-center gap-2 flex-wrap">
-            {/* Only In Stock Filter Chip */}
-            <md-filter-chip
-              label={t.catalog.onlyInStock}
-              selected={onlyInStock}
-              onClick={(e) => {
-                e.preventDefault();
-                setOnlyInStock((prev) => !prev);
-              }}
+      {/* Compact Controls Row: Filters + Sort + View Mode Switcher */}
+      <div className="flex items-center justify-between gap-2 pt-0.5">
+        {/* Left: Quick In-Stock Toggle + Sort Dropdown */}
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+          {/* In-Stock Toggle Pill */}
+          <button
+            type="button"
+            onClick={() => setOnlyInStock((prev) => !prev)}
+            className={`inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-xs font-semibold whitespace-nowrap transition-all active:scale-95 cursor-pointer border ${
+              onlyInStock
+                ? 'bg-[#d3e3fd] text-[#041e49] border-[#0b57d0]'
+                : 'bg-white text-[#444746] border-[#c4c7c5]/60 hover:bg-[#f3f6fc]'
+            }`}
+          >
+            <span
+              className={`h-2 w-2 rounded-full transition-colors ${
+                onlyInStock ? 'bg-[#0b57d0]' : 'bg-[#c4c7c5]'
+              }`}
             />
+            <span>{t.catalog.onlyInStock}</span>
+          </button>
 
-            {/* Sort Select */}
+          {/* Sort Select Pill */}
+          <div className="relative inline-flex items-center">
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as SortOption)}
-              className="h-9 rounded-full border border-[#c4c7c5] bg-white px-3 text-xs font-semibold text-[#1f1f1f] focus:border-[#0b57d0] focus:outline-none cursor-pointer"
+              className="h-8 pl-2.5 pr-6 rounded-full bg-white border border-[#c4c7c5]/60 text-xs font-semibold text-[#1f1f1f] focus:outline-none focus:border-[#0b57d0] appearance-none cursor-pointer"
             >
               <option value="stock_desc">{t.catalog.sortStockDesc}</option>
               <option value="price_asc">{t.catalog.sortPriceAsc}</option>
               <option value="price_desc">{t.catalog.sortPriceDesc}</option>
               <option value="newest">{t.catalog.sortNewest}</option>
             </select>
+            <M3Icon
+              name="expand_more"
+              className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 text-[16px] text-[#444746]"
+            />
           </div>
         </div>
 
-        {/* M3 Segmented View Mode Switcher */}
-        <div className="flex items-center justify-between sm:justify-end gap-2.5 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#e0e2ec]/60">
-          <span className="text-xs text-[#444746]">
-            <strong className="text-[#1f1f1f]">{filteredProducts.length}</strong>{' '}
+        {/* Right: Found Count & View Mode Switcher */}
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="hidden sm:inline text-xs text-[#747775]">
+            <strong className="text-[#1f1f1f] font-semibold">{filteredProducts.length}</strong>{' '}
             {t.catalog.foundCount}
           </span>
-          <div className="inline-flex rounded-full border border-[#c4c7c5] bg-white p-0.5">
+
+          <div className="inline-flex rounded-full border border-[#c4c7c5]/70 bg-white p-0.5">
             <button
               type="button"
               onClick={() => setViewMode('grid')}
-              className={`inline-flex items-center gap-1 rounded-full px-2.5 sm:px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer active:scale-95 ${
+              className={`flex h-7 w-7 items-center justify-center rounded-full transition-colors cursor-pointer active:scale-90 ${
                 viewMode === 'grid'
                   ? 'bg-[#c2e7ff] text-[#001d35]'
                   : 'text-[#444746] hover:bg-[#edf2fa]'
               }`}
+              title={t.catalog.viewGrid}
             >
               <M3Icon name="grid_view" className="text-[16px]" />
-              <span>{t.catalog.viewGrid}</span>
             </button>
             <button
               type="button"
               onClick={() => setViewMode('table')}
-              className={`inline-flex items-center gap-1 rounded-full px-2.5 sm:px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer active:scale-95 ${
+              className={`flex h-7 w-7 items-center justify-center rounded-full transition-colors cursor-pointer active:scale-90 ${
                 viewMode === 'table'
                   ? 'bg-[#c2e7ff] text-[#001d35]'
                   : 'text-[#444746] hover:bg-[#edf2fa]'
               }`}
+              title={t.catalog.viewTable}
             >
               <M3Icon name="view_list" className="text-[16px]" />
-              <span>{t.catalog.viewTable}</span>
             </button>
           </div>
         </div>

@@ -11,8 +11,8 @@ export function Footer({ settings }: { settings: Omit<SiteSettings, 'adminPin'> 
   const companyName = l(lang, settings.companyNameUz, settings.companyNameRu) || t.brandFallback;
 
   return (
-    <footer className="no-print mt-10 sm:mt-12 border-t border-[#e0e2ec] bg-[#edf2fa] pb-24 sm:pb-8">
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8 sm:px-6">
+    <footer className="no-print hidden sm:block mt-12 border-t border-[#e0e2ec] bg-[#edf2fa]">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
         <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
           <div className="space-y-1.5">
             <div className="flex items-center gap-2 text-sm sm:text-base font-semibold text-[#1f1f1f]">
