@@ -36,9 +36,15 @@ export function ShareModal({ isOpen, onClose, product }: ShareModalProps) {
       if (e.key === 'Escape') onClose();
     };
     if (isOpen) {
+      document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = '';
     }
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [isOpen, onClose]);
 
   if (!isOpen || !product) return null;
@@ -125,15 +131,18 @@ export function ShareModal({ isOpen, onClose, product }: ShareModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/45 backdrop-blur-xs animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/50 backdrop-blur-xs animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-md rounded-[28px] bg-white p-6 shadow-2xl border border-[#e0e2ec] animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-md rounded-t-[28px] sm:rounded-[28px] bg-white p-5 sm:p-6 shadow-2xl border-t sm:border border-[#e0e2ec] max-h-[92vh] overflow-y-auto no-scrollbar animate-in slide-in-from-bottom-12 sm:slide-in-from-bottom-0 sm:zoom-in-95 duration-250 ease-out"
         role="dialog"
         aria-modal="true"
+        style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 24px)' }}
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Mobile Swipe / Drag Handle Pill */}
+        <div className="mx-auto -mt-2 mb-3 h-1.5 w-12 rounded-full bg-[#c4c7c5]/70 sm:hidden" />
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-[#e0e2ec]">
           <div>
