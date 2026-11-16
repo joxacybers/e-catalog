@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { M3Icon } from '../m3/MaterialWebLoader';
 
 interface ConfirmDialogProps {
@@ -26,12 +27,18 @@ export function ConfirmDialog({
   onConfirm,
   onCancel,
 }: ConfirmDialogProps) {
-  if (!isOpen) return null;
+  const [mounted, setMounted] = useState(false);
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!isOpen || !mounted) return null;
+
+  return createPortal(
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
       <div
-        className="w-full max-w-sm rounded-[28px] bg-white p-6 shadow-2xl border border-[#e0e2ec]"
+        className="w-full max-w-sm rounded-[28px] bg-white p-6 shadow-2xl border border-[#e0e2ec] animate-in zoom-in-95 duration-200"
         role="dialog"
         aria-modal="true"
       >
@@ -85,6 +92,7 @@ export function ConfirmDialog({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

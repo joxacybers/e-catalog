@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import type { Product } from '@/types/catalog';
 import { useLanguage } from '@/context/LanguageContext';
 import { formatNumber, formatPrice, l } from '@/lib/i18n';
@@ -14,11 +15,13 @@ interface ShareModalProps {
 
 export function ShareModal({ isOpen, onClose, product }: ShareModalProps) {
   const { lang, t } = useLanguage();
+  const [mounted, setMounted] = useState(false);
   const [copied, setCopied] = useState(false);
   const [copiedText, setCopiedText] = useState(false);
   const [origin, setOrigin] = useState('');
 
   useEffect(() => {
+    setMounted(true);
     if (typeof window !== 'undefined') {
       setOrigin(window.location.origin);
     }
@@ -47,7 +50,7 @@ export function ShareModal({ isOpen, onClose, product }: ShareModalProps) {
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen || !product) return null;
+  if (!isOpen || !product || !mounted) return null;
 
   const productName = l(lang, product.nameUz, product.nameRu);
   const description = l(lang, product.descriptionUz, product.descriptionRu);
@@ -129,13 +132,13 @@ export function ShareModal({ isOpen, onClose, product }: ShareModalProps) {
     productUrl
   )}`;
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/50 backdrop-blur-xs animate-in fade-in duration-200"
+      className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-md rounded-t-[28px] sm:rounded-[28px] bg-white p-5 sm:p-6 shadow-2xl border-t sm:border border-[#e0e2ec] max-h-[92vh] overflow-y-auto no-scrollbar animate-in slide-in-from-bottom-12 sm:slide-in-from-bottom-0 sm:zoom-in-95 duration-250 ease-out"
+        className="relative w-full max-w-md rounded-t-[28px] sm:rounded-[28px] bg-white p-5 sm:p-6 shadow-2xl border-t sm:border border-[#e0e2ec] max-h-[88vh] sm:max-h-[90vh] overflow-y-auto no-scrollbar animate-in slide-in-from-bottom-12 sm:slide-in-from-bottom-0 sm:zoom-in-95 duration-250 ease-out"
         role="dialog"
         aria-modal="true"
         style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 24px)' }}
@@ -309,6 +312,7 @@ export function ShareModal({ isOpen, onClose, product }: ShareModalProps) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
