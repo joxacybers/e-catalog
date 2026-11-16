@@ -289,63 +289,56 @@ export function ProductDetailClient({
               paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 10px)',
             }}
           >
-            <div className="mx-auto max-w-6xl px-3 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between gap-2.5 sm:gap-4">
-              {/* Product preview & price info */}
-              <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+            <div className="mx-auto max-w-6xl px-3 sm:px-6 py-2.5 flex items-center justify-between gap-2.5 sm:gap-4">
+              {/* Product preview thumbnail (Only image) */}
+              <button
+                type="button"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="h-11 w-11 sm:h-12 sm:w-12 rounded-2xl bg-[#f3f6fc] p-1 border border-[#c4c7c5]/60 shrink-0 flex items-center justify-center cursor-pointer active:scale-95 transition-all shadow-2xs hover:border-[#0b57d0]"
+                title={name}
+                aria-label={name}
+              >
                 <img
                   src={product.images[activeImageIdx] || product.images[0]}
                   alt={name}
-                  className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl object-contain bg-[#f3f6fc] p-1 border border-[#e0e2ec] shrink-0"
+                  className="h-full w-full object-contain rounded-xl"
                 />
-                <div className="min-w-0">
-                  <div className="text-xs sm:text-sm font-bold text-[#1f1f1f] truncate max-w-[130px] xs:max-w-[200px] sm:max-w-xs md:max-w-md">
-                    {name}
-                  </div>
-                  <div className="flex items-baseline gap-1.5 text-xs">
-                    <span className="font-bold text-[#0b57d0]">
-                      {formatPrice(product.packPrice, lang)}
-                    </span>
-                    <span className="text-[11px] text-[#747775] truncate hidden sm:inline">
-                      / 1 {packType} ({product.packQuantity} {unitName})
-                    </span>
-                  </div>
-                </div>
-              </div>
+              </button>
 
               {/* Action Buttons: Telegramdan so'rash, Telefon, Ulashish */}
-              <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+              <div className="flex items-center gap-2 sm:gap-3 flex-1 justify-end min-w-0">
                 {/* Telegram ask / order button */}
                 <a
                   href={directTelegramHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-1.5 h-10 sm:h-11 px-3.5 sm:px-5 rounded-full bg-[#0b57d0] text-white hover:bg-[#0842a0] active:scale-95 text-xs sm:text-sm font-semibold transition-all shadow-2xs cursor-pointer"
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 h-11 px-4 sm:px-6 rounded-full bg-[#0b57d0] text-white hover:bg-[#0842a0] active:scale-95 text-xs sm:text-sm font-semibold transition-all shadow-2xs cursor-pointer truncate"
                 >
-                  <M3Icon name="send" className="text-[16px] sm:text-[18px]" />
-                  <span className="truncate">{t.product.askTelegram}</span>
+                  <M3Icon name="send" className="text-[17px] sm:text-[18px]" />
+                  <span>{t.product.askTelegram}</span>
                 </a>
 
                 {/* Call phone button */}
                 <a
                   href={formatPhoneHref(settings.phonePrimary)}
-                  className="inline-flex items-center justify-center gap-1.5 h-10 sm:h-11 px-3 sm:px-4 rounded-full bg-[#c2e7ff] text-[#001d35] hover:bg-[#b0dcf5] active:scale-95 text-xs sm:text-sm font-semibold transition-all shadow-2xs cursor-pointer shrink-0"
+                  className="inline-flex items-center justify-center gap-1.5 h-11 w-11 sm:w-auto sm:px-4 rounded-full bg-[#c2e7ff] text-[#001d35] hover:bg-[#b0dcf5] active:scale-95 text-xs sm:text-sm font-semibold transition-all shadow-2xs cursor-pointer shrink-0"
                   title={`${t.product.callNow}: ${settings.phonePrimary}`}
                   aria-label={t.product.callNow}
                 >
-                  <M3Icon name="call" className="text-[17px] sm:text-[18px]" />
-                  <span className="hidden md:inline font-mono">{settings.phonePrimary}</span>
+                  <M3Icon name="call" className="text-[18px]" />
+                  <span className="hidden sm:inline font-mono">{settings.phonePrimary}</span>
                 </a>
 
                 {/* Share button */}
                 <button
                   type="button"
                   onClick={() => setShareOpen(true)}
-                  className="inline-flex items-center justify-center gap-1.5 h-10 sm:h-11 px-3 sm:px-4 rounded-full bg-[#f3f6fc] text-[#1f1f1f] hover:bg-[#e0e2ec] hover:text-[#0b57d0] border border-[#c4c7c5]/70 active:scale-95 text-xs sm:text-sm font-semibold transition-all shadow-2xs shrink-0 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-1.5 h-11 w-11 sm:w-auto sm:px-4 rounded-full bg-[#f3f6fc] text-[#1f1f1f] hover:bg-[#e0e2ec] hover:text-[#0b57d0] border border-[#c4c7c5]/70 active:scale-95 text-xs sm:text-sm font-semibold transition-all shadow-2xs shrink-0 cursor-pointer"
                   title={t.product.shareBtn}
                   aria-label={t.product.shareBtn}
                 >
-                  <M3Icon name="share" className="text-[17px] sm:text-[18px]" />
-                  <span className="hidden lg:inline">{t.product.shareBtn}</span>
+                  <M3Icon name="share" className="text-[18px]" />
+                  <span className="hidden md:inline">{t.product.shareBtn}</span>
                 </button>
               </div>
             </div>
