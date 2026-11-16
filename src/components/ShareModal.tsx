@@ -60,10 +60,17 @@ export function ShareModal({ isOpen, onClose, product, settings }: ShareModalPro
   const baseUrl = settings?.siteUrl ? settings.siteUrl.replace(/\/+$/, '') : origin;
   const productUrl = `${baseUrl || ''}/product/${product.slug}`;
 
+  const variantsLine =
+    product.variants && product.variants.length > 0
+      ? lang === 'uz'
+        ? `\n✨ Turlari / Hidlari: ${product.variants.map((v) => l(lang, v.nameUz, v.nameRu)).join(', ')}`
+        : `\n✨ Виды / Ароматы: ${product.variants.map((v) => l(lang, v.nameUz, v.nameRu)).join(', ')}`
+      : '';
+
   const shareText =
     lang === 'uz'
-      ? `🔹 ${productName}\n\n📝 Tavsifi: ${description}\n\n💰 1 ${unitName} narxi: ${formatPrice(product.unitPrice, 'uz')}\n📦 1 ${packType} (${product.packQuantity} ${unitName}): ${formatPrice(product.packPrice, 'uz')}\n📍 Omborda bor: ${formatNumber(product.stockPacks)} ${packType}\n\n🔗 Batafsil ko‘rish va buyurtma berish:`
-      : `🔹 ${productName}\n\n📝 Описание: ${description}\n\n💰 Цена за 1 ${unitName}: ${formatPrice(product.unitPrice, 'ru')}\n📦 1 ${packType} (${product.packQuantity} ${unitName}): ${formatPrice(product.packPrice, 'ru')}\n📍 На складе: ${formatNumber(product.stockPacks)} ${packType}\n\n🔗 Посмотреть и заказать:`;
+      ? `🔹 ${productName}\n\n📝 Tavsifi: ${description}${variantsLine}\n\n💰 1 ${unitName} narxi: ${formatPrice(product.unitPrice, 'uz')}\n📦 1 ${packType} (${product.packQuantity} ${unitName}): ${formatPrice(product.packPrice, 'uz')}\n📍 Omborda bor: ${formatNumber(product.stockPacks)} ${packType}\n\n🔗 Batafsil ko‘rish va buyurtma berish:`
+      : `🔹 ${productName}\n\n📝 Описание: ${description}${variantsLine}\n\n💰 Цена за 1 ${unitName}: ${formatPrice(product.unitPrice, 'ru')}\n📦 1 ${packType} (${product.packQuantity} ${unitName}): ${formatPrice(product.packPrice, 'ru')}\n📍 На складе: ${formatNumber(product.stockPacks)} ${packType}\n\n🔗 Посмотреть и заказать:`;
 
   const handleCopy = async () => {
     try {

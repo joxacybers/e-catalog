@@ -18,6 +18,15 @@ export interface ProductSpec {
   valueRu: string;
 }
 
+export interface ProductVariant {
+  id: string;
+  nameUz: string;
+  nameRu: string;
+  colorHex?: string;
+  imageUrl?: string;
+  sku?: string;
+}
+
 export interface Product {
   id: string;
   slug: string;
@@ -43,6 +52,7 @@ export interface Product {
   isSpecialOffer: boolean;
   images: string[];
   specs: ProductSpec[];
+  variants?: ProductVariant[];
   updatedAt: string;
 }
 

@@ -38,7 +38,11 @@ export async function generateMetadata({
     : 'http://localhost:3000';
 
   const title = `${product.nameUz} — ${formatPrice(product.unitPrice, 'uz')} / dona`;
-  const description = `${product.descriptionUz} • Qadoqda: 1 ${product.packTypeUz} = ${product.packQuantity} ${product.unitNameUz} (${formatPrice(product.packPrice, 'uz')}) • Omborda: ${formatNumber(product.stockPacks)} ${product.packTypeUz}`;
+  const variantsSummary =
+    product.variants && product.variants.length > 0
+      ? ` • Turlari: ${product.variants.map((v) => v.nameUz).join(', ')}`
+      : '';
+  const description = `${product.descriptionUz}${variantsSummary} • Qadoqda: 1 ${product.packTypeUz} = ${product.packQuantity} ${product.unitNameUz} (${formatPrice(product.packPrice, 'uz')}) • Omborda: ${formatNumber(product.stockPacks)} ${product.packTypeUz}`;
   const rawImage = product.images[0] || '/images/products/dmst-1000.jpg';
   const fullImageUrl =
     rawImage.startsWith('http://') || rawImage.startsWith('https://')

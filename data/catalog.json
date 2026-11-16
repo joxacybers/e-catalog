@@ -106,7 +106,33 @@
           "valueRu": "1 блок = 12 шт"
         }
       ],
-      "updatedAt": "2026-11-16T11:24:00.000Z"
+      "updatedAt": "2026-11-16T11:24:00.000Z",
+      "variants": [
+        {
+          "id": "dmst-lmn",
+          "nameUz": "Limon",
+          "nameRu": "Лимон",
+          "colorHex": "#FACC15"
+        },
+        {
+          "id": "dmst-cls",
+          "nameUz": "Klassik Xlorli",
+          "nameRu": "Классик Хлор",
+          "colorHex": "#0284C7"
+        },
+        {
+          "id": "dmst-ocn",
+          "nameUz": "Okean nafasi",
+          "nameRu": "Морской бриз",
+          "colorHex": "#06B6D4"
+        },
+        {
+          "id": "dmst-blk",
+          "nameUz": "Ultra Qora",
+          "nameRu": "Ультра Черный",
+          "colorHex": "#1E293B"
+        }
+      ]
     },
     {
       "id": "prod-dlf-4040",
@@ -153,7 +179,33 @@
           "valueRu": "1 пакет = 20 шт"
         }
       ],
-      "updatedAt": "2026-11-16T11:24:00.000Z"
+      "updatedAt": "2026-11-16T11:24:00.000Z",
+      "variants": [
+        {
+          "id": "dlf-blue",
+          "nameUz": "Moviy",
+          "nameRu": "Синий",
+          "colorHex": "#2563EB"
+        },
+        {
+          "id": "dlf-ylw",
+          "nameUz": "Sariq",
+          "nameRu": "Желтый",
+          "colorHex": "#EAB308"
+        },
+        {
+          "id": "dlf-grn",
+          "nameUz": "Yashil",
+          "nameRu": "Зеленый",
+          "colorHex": "#16A34A"
+        },
+        {
+          "id": "dlf-red",
+          "nameUz": "Qizil",
+          "nameRu": "Красный",
+          "colorHex": "#DC2626"
+        }
+      ]
     },
     {
       "id": "prod-chng-3535",
@@ -200,7 +252,21 @@
           "valueRu": "1 пакет = 24 шт"
         }
       ],
-      "updatedAt": "2026-11-16T11:24:00.000Z"
+      "updatedAt": "2026-11-16T11:24:00.000Z",
+      "variants": [
+        {
+          "id": "chng-org",
+          "nameUz": "To‘q sariq",
+          "nameRu": "Оранжевый",
+          "colorHex": "#F97316"
+        },
+        {
+          "id": "chng-sky",
+          "nameUz": "Och ko‘k",
+          "nameRu": "Голубой",
+          "colorHex": "#38BDF8"
+        }
+      ]
     },
     {
       "id": "prod-disp-1000",
@@ -247,7 +313,27 @@
           "valueRu": "1 коробка = 6 шт"
         }
       ],
-      "updatedAt": "2026-11-16T11:24:00.000Z"
+      "updatedAt": "2026-11-16T11:24:00.000Z",
+      "variants": [
+        {
+          "id": "disp-wht",
+          "nameUz": "Oq porloq",
+          "nameRu": "Белый глянец",
+          "colorHex": "#F8FAFC"
+        },
+        {
+          "id": "disp-blk",
+          "nameUz": "Mat qora",
+          "nameRu": "Черный матовый",
+          "colorHex": "#18181B"
+        },
+        {
+          "id": "disp-chr",
+          "nameUz": "Xrom metallik",
+          "nameRu": "Хром металлик",
+          "colorHex": "#94A3B8"
+        }
+      ]
     },
     {
       "id": "prod-blt-kitch",
@@ -294,7 +380,8 @@
           "valueRu": "1 блок = 12 пачек (24 рулона)"
         }
       ],
-      "updatedAt": "2026-11-16T11:24:00.000Z"
+      "updatedAt": "2026-11-16T11:24:00.000Z",
+      "variants": []
     },
     {
       "id": "prod-hrc-z200",
@@ -341,7 +428,8 @@
           "valueRu": "1 коробка = 20 пачек (4000 листов)"
         }
       ],
-      "updatedAt": "2026-11-16T11:24:00.000Z"
+      "updatedAt": "2026-11-16T11:24:00.000Z",
+      "variants": []
     },
     {
       "id": "prod-blt-wet120",
@@ -388,7 +476,27 @@
           "valueRu": "1 коробка = 24 пачки"
         }
       ],
-      "updatedAt": "2026-11-16T11:24:00.000Z"
+      "updatedAt": "2026-11-16T11:24:00.000Z",
+      "variants": [
+        {
+          "id": "blt-aloe",
+          "nameUz": "Aloe Vera",
+          "nameRu": "Алоэ Вера",
+          "colorHex": "#10B981"
+        },
+        {
+          "id": "blt-chm",
+          "nameUz": "Moychechak (Romashka)",
+          "nameRu": "Ромашка",
+          "colorHex": "#F59E0B"
+        },
+        {
+          "id": "blt-kid",
+          "nameUz": "Bolalar uchun (Sensetive)",
+          "nameRu": "Детские Sensetive",
+          "colorHex": "#38BDF8"
+        }
+      ]
     },
     {
       "id": "prod-fry-900",
@@ -435,7 +543,33 @@
           "valueRu": "1 блок = 12 шт"
         }
       ],
-      "updatedAt": "2026-11-16T11:24:00.000Z"
+      "updatedAt": "2026-11-16T11:24:00.000Z",
+      "variants": [
+        {
+          "id": "fry-lmn",
+          "nameUz": "Limon",
+          "nameRu": "Лимон",
+          "colorHex": "#FACC15"
+        },
+        {
+          "id": "fry-apl",
+          "nameUz": "Yashil olma",
+          "nameRu": "Зеленое яблоко",
+          "colorHex": "#22C55E"
+        },
+        {
+          "id": "fry-pom",
+          "nameUz": "Pishgan anor",
+          "nameRu": "Спелый гранат",
+          "colorHex": "#E11D48"
+        },
+        {
+          "id": "fry-tea",
+          "nameUz": "Choy daraxti",
+          "nameRu": "Чайное дерево",
+          "colorHex": "#14B8A6"
+        }
+      ]
     },
     {
       "id": "prod-hrc-j150",
@@ -482,7 +616,8 @@
           "valueRu": "1 блок = 12 рулонов"
         }
       ],
-      "updatedAt": "2026-11-16T11:24:00.000Z"
+      "updatedAt": "2026-11-16T11:24:00.000Z",
+      "variants": []
     },
     {
       "id": "prod-dlf-mop40",
@@ -529,7 +664,27 @@
           "valueRu": "1 пакет = 25 шт"
         }
       ],
-      "updatedAt": "2026-11-16T11:24:00.000Z"
+      "updatedAt": "2026-11-16T11:24:00.000Z",
+      "variants": [
+        {
+          "id": "mop-blu",
+          "nameUz": "Moviy chiziqli",
+          "nameRu": "Синяя полоска",
+          "colorHex": "#3B82F6"
+        },
+        {
+          "id": "mop-red",
+          "nameUz": "Qizil chiziqli",
+          "nameRu": "Красная полоска",
+          "colorHex": "#EF4444"
+        },
+        {
+          "id": "mop-grn",
+          "nameUz": "Yashil chiziqli",
+          "nameRu": "Зеленая полоска",
+          "colorHex": "#10B981"
+        }
+      ]
     },
     {
       "id": "prod-1794799367010",
@@ -557,7 +712,8 @@
         "https://scontent.xx.fbcdn.net/v/t39.105495-1/912327672_3195396780656829_4827854353152220710_n.webp?_nc_ht=scontent.xx.fbcdn.net&_nc_cat=109&_nc_ohc=MThddmCh6FAQ7kNvwFLiIpd&sdl=0&ccb=14-4&oh=00_AQTehL-rHNY9p_65OVcB6c7Ja48Ovx550ALUJJAnhj2taQ&oe=6B0045CE&_nc_sid=a21977"
       ],
       "specs": [],
-      "updatedAt": "2026-11-16T03:22:47.010Z"
+      "updatedAt": "2026-11-16T03:22:47.010Z",
+      "variants": []
     }
   ]
 }

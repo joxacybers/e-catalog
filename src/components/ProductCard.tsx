@@ -110,9 +110,21 @@ export function ProductCard({
           {name}
         </Link>
 
-        <p className="mt-1 line-clamp-1 min-h-[1.125rem] text-[11px] sm:text-xs text-[#444746] truncate">
-          {specsLine || '\u00A0'}
-        </p>
+        {product.variants && product.variants.length > 0 ? (
+          <div className="mt-1 flex items-center gap-1 text-[11px] sm:text-xs text-[#0b57d0] font-medium min-h-[1.125rem] truncate">
+            <M3Icon name="palette" className="text-[13px] shrink-0" />
+            <span className="truncate">
+              {product.variants.length} {lang === 'uz' ? 'xil variant' : 'аромата'}:{' '}
+              <span className="text-[#444746] font-normal">
+                {product.variants.map((v) => l(lang, v.nameUz, v.nameRu)).join(', ')}
+              </span>
+            </span>
+          </div>
+        ) : (
+          <p className="mt-1 line-clamp-1 min-h-[1.125rem] text-[11px] sm:text-xs text-[#444746] truncate">
+            {specsLine || '\u00A0'}
+          </p>
+        )}
 
         {/* Packaging & Exact Stock Line */}
         <div className="mt-2 min-h-[1.25rem] text-[11px] sm:text-xs text-[#444746] flex flex-wrap items-center gap-x-1.5 gap-y-0.5">

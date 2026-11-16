@@ -32,6 +32,9 @@ export function ProductDetailClient({
   const [mounted, setMounted] = useState(false);
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const [shareOpen, setShareOpen] = useState(false);
+  const [selectedVariantId, setSelectedVariantId] = useState<string | null>(
+    product.variants?.[0]?.id || null
+  );
 
   useEffect(() => {
     setMounted(true);
@@ -44,9 +47,14 @@ export function ProductDetailClient({
   const stockState = getStockState(product);
   const totalUnitsInStock = product.stockPacks * product.packQuantity;
 
+  const selectedVariant =
+    product.variants?.find((v) => v.id === selectedVariantId) ||
+    product.variants?.[0] ||
+    null;
+
   const directTelegramHref = buildTelegramUrl(
     settings,
-    buildProductTelegramMessage(product, lang)
+    buildProductTelegramMessage(product, lang, undefined, selectedVariant)
   );
 
   return (
@@ -160,6 +168,59 @@ export function ProductDetailClient({
                 </div>
               )}
             </div>
+
+            {/* Product Variants (Scent, Color, Type selector) */}
+            {product.variants && product.variants.length > 0 && (
+              <div className="rounded-[18px] sm:rounded-[20px] bg-[#f8fafd] p-3.5 sm:p-4 border border-[#e0e2ec]/80 space-y-2.5">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#1f1f1f]">
+                    <M3Icon name="palette" className="text-[17px] text-[#0b57d0]" />
+                    <span>{lang === 'uz' ? 'Turi / Hidi:' : 'Вид / Аромат:'}</span>
+                    {selectedVariant && (
+                      <span className="font-bold text-[#0b57d0]">
+                        {l(lang, selectedVariant.nameUz, selectedVariant.nameRu)}
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-[11px] text-[#747775]">
+                    {product.variants.length} {lang === 'uz' ? 'xil variant' : 'варианта'}
+                  </span>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {product.variants.map((v) => {
+                    const isSelected = (selectedVariant?.id || product.variants![0].id) === v.id;
+                    const vName = l(lang, v.nameUz, v.nameRu);
+                    return (
+                      <button
+                        key={v.id}
+                        type="button"
+                        onClick={() => {
+                          setSelectedVariantId(v.id);
+                          if (v.imageUrl) {
+                            const foundIdx = product.images.findIndex((img) => img === v.imageUrl);
+                            if (foundIdx >= 0) setActiveImageIdx(foundIdx);
+                          }
+                        }}
+                        className={`inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium transition-all active:scale-95 cursor-pointer border ${
+                          isSelected
+                            ? 'bg-[#c2e7ff] text-[#001d35] border-[#0b57d0] font-semibold shadow-2xs ring-2 ring-[#0b57d0]/25'
+                            : 'bg-white text-[#444746] border-[#c4c7c5] hover:bg-[#edf2fa] hover:text-[#1f1f1f]'
+                        }`}
+                      >
+                        {v.colorHex && (
+                          <span
+                            className="h-3 w-3 rounded-full border border-black/15 shrink-0 shadow-2xs"
+                            style={{ backgroundColor: v.colorHex }}
+                          />
+                        )}
+                        <span>{vName}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {/* Side-by-side M3 Tonal Price Cards */}
             <div className="grid grid-cols-2 gap-2.5 sm:gap-4">

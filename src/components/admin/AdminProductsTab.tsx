@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import type { Category, Product, ProductSpec } from '@/types/catalog';
+import type { Category, Product, ProductSpec, ProductVariant } from '@/types/catalog';
 import { useLanguage } from '@/context/LanguageContext';
 import { formatNumber, formatPrice, l } from '@/lib/i18n';
 import {
@@ -154,6 +154,37 @@ export function AdminProductsTab({
     setEditing({
       ...editing,
       specs: (editing.specs || []).filter((_, i) => i !== idx),
+    });
+  };
+
+  const updateVariant = (idx: number, patch: Partial<ProductVariant>) => {
+    if (!editing) return;
+    const variants = [...(editing.variants || [])];
+    variants[idx] = { ...variants[idx], ...patch };
+    setEditing({ ...editing, variants });
+  };
+
+  const addVariantRow = () => {
+    if (!editing) return;
+    setEditing({
+      ...editing,
+      variants: [
+        ...(editing.variants || []),
+        {
+          id: `var-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+          nameUz: '',
+          nameRu: '',
+          colorHex: '#0b57d0',
+        },
+      ],
+    });
+  };
+
+  const removeVariantRow = (idx: number) => {
+    if (!editing) return;
+    setEditing({
+      ...editing,
+      variants: (editing.variants || []).filter((_, i) => i !== idx),
     });
   };
 
@@ -486,6 +517,86 @@ export function AdminProductsTab({
                 />
               </div>
             </div>
+          </div>
+
+          {/* Product Variants (Types, Scents, Flavors) */}
+          <div className="space-y-3 rounded-2xl bg-[#f8fafd] p-4 border border-[#e0e2ec]">
+            <div className="flex items-center justify-between">
+              <div>
+                <label className="text-xs font-semibold uppercase tracking-wider text-[#1f1f1f] flex items-center gap-1.5">
+                  <M3Icon name="palette" className="text-[16px] text-[#0b57d0]" />
+                  <span>Mahsulot turlari / hidlari (Variantlar)</span>
+                </label>
+                <p className="text-[11px] text-[#747775] mt-0.5">
+                  Masalan: Limon, Aloe Vera, Qora, Okean nafasi, Moviy va h.k.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={addVariantRow}
+                className="inline-flex items-center gap-1.5 h-8 px-3.5 rounded-full bg-[#c2e7ff] text-[#001d35] hover:bg-[#b0dcf5] text-xs font-semibold transition-colors shadow-2xs cursor-pointer"
+              >
+                <M3Icon name="add" className="text-[16px]" />
+                <span>Tur / Hid qo‘shish</span>
+              </button>
+            </div>
+
+            {(!editing.variants || editing.variants.length === 0) ? (
+              <p className="text-xs text-[#747775] italic py-1">
+                Ushbu mahsulot uchun alohida tur yoki hid belgilanmagan (yakka xil).
+              </p>
+            ) : (
+              <div className="space-y-2">
+                {editing.variants.map((v, idx) => (
+                  <div key={v.id || idx} className="grid gap-2 sm:grid-cols-12 sm:items-center bg-white p-2.5 rounded-xl border border-[#c4c7c5]/60">
+                    <div className="sm:col-span-4">
+                      <input
+                        type="text"
+                        placeholder="Nomi / Hidi (UZ, mas: Limon)"
+                        value={v.nameUz}
+                        onChange={(e) => updateVariant(idx, { nameUz: e.target.value })}
+                        className="w-full rounded-xl border border-[#c4c7c5] px-2.5 py-1.5 text-xs"
+                      />
+                    </div>
+                    <div className="sm:col-span-4">
+                      <input
+                        type="text"
+                        placeholder="Название / Аромат (RU, напр: Лимон)"
+                        value={v.nameRu}
+                        onChange={(e) => updateVariant(idx, { nameRu: e.target.value })}
+                        className="w-full rounded-xl border border-[#c4c7c5] px-2.5 py-1.5 text-xs"
+                      />
+                    </div>
+                    <div className="sm:col-span-3 flex items-center gap-2">
+                      <input
+                        type="color"
+                        value={v.colorHex || '#0b57d0'}
+                        onChange={(e) => updateVariant(idx, { colorHex: e.target.value })}
+                        className="h-8 w-8 rounded-lg border border-[#c4c7c5] p-0.5 cursor-pointer shrink-0"
+                        title="Rang belgisi"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Rang (#hex)"
+                        value={v.colorHex || ''}
+                        onChange={(e) => updateVariant(idx, { colorHex: e.target.value })}
+                        className="w-full rounded-xl border border-[#c4c7c5] px-2 py-1.5 text-xs font-mono"
+                      />
+                    </div>
+                    <div className="sm:col-span-1 flex justify-end">
+                      <button
+                        type="button"
+                        onClick={() => removeVariantRow(idx)}
+                        className="inline-flex items-center justify-center rounded-full p-1.5 text-rose-700 hover:bg-rose-50 cursor-pointer"
+                        title="O‘chirish"
+                      >
+                        <M3Icon name="delete" className="text-[18px]" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Technical Specs Editor */}

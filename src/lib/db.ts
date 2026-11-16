@@ -86,6 +86,7 @@ export function saveProduct(input: Partial<Product> & { nameUz: string; category
       stockPacks,
       inStock: stockPacks === 0 ? false : Boolean(input.inStock ?? existing.inStock),
       lowStockThreshold: Math.max(0, Number(input.lowStockThreshold ?? existing.lowStockThreshold)),
+      variants: Array.isArray(input.variants) ? input.variants : existing.variants,
       updatedAt: now,
     };
     data.products[existingIndex] = updated;
@@ -131,6 +132,7 @@ export function saveProduct(input: Partial<Product> & { nameUz: string; category
         ? input.images
         : SEED_CATALOG_DATA.products[0].images,
     specs: Array.isArray(input.specs) ? input.specs : [],
+    variants: Array.isArray(input.variants) ? input.variants : [],
     updatedAt: now,
   };
 

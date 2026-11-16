@@ -90,6 +90,7 @@ export function SimpleCatalogView({
         p.descriptionUz,
         p.descriptionRu,
         ...p.specs.flatMap((s) => [s.labelUz, s.labelRu, s.valueUz, s.valueRu]),
+        ...(p.variants || []).flatMap((v) => [v.nameUz, v.nameRu, v.sku || '']),
       ]
         .join(' ')
         .toLowerCase();
