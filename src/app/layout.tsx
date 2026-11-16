@@ -25,7 +25,11 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const dynamic = 'force-dynamic';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+const initialData = getCatalogData();
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  initialData.settings.siteUrl ||
+  'http://localhost:3000';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import type { Product } from '@/types/catalog';
+import type { Product, SiteSettings } from '@/types/catalog';
 import { useLanguage } from '@/context/LanguageContext';
 import { formatNumber, formatPrice, l } from '@/lib/i18n';
 import { M3Icon } from './m3/MaterialWebLoader';
@@ -11,9 +11,10 @@ interface ShareModalProps {
   isOpen: boolean;
   onClose: () => void;
   product: Product | null;
+  settings?: Omit<SiteSettings, 'adminPin'>;
 }
 
-export function ShareModal({ isOpen, onClose, product }: ShareModalProps) {
+export function ShareModal({ isOpen, onClose, product, settings }: ShareModalProps) {
   const { lang, t } = useLanguage();
   const [mounted, setMounted] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -56,7 +57,8 @@ export function ShareModal({ isOpen, onClose, product }: ShareModalProps) {
   const description = l(lang, product.descriptionUz, product.descriptionRu);
   const unitName = l(lang, product.unitNameUz, product.unitNameRu);
   const packType = l(lang, product.packTypeUz, product.packTypeRu);
-  const productUrl = `${origin || ''}/product/${product.slug}`;
+  const baseUrl = settings?.siteUrl ? settings.siteUrl.replace(/\/+$/, '') : origin;
+  const productUrl = `${baseUrl || ''}/product/${product.slug}`;
 
   const shareText =
     lang === 'uz'

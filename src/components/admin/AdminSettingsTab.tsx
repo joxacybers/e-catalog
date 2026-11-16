@@ -214,6 +214,22 @@ export function AdminSettingsTab({
           />
         </div>
 
+        <div className="md:col-span-2">
+          <label className="mb-1 block text-xs font-medium text-[#444746]">
+            Sayt havolasi / Domen (masalan: https://katalog.uz yoki https://xxxx.ngrok-free.app)
+          </label>
+          <input
+            type="url"
+            placeholder="https://katalog.uz"
+            value={form.siteUrl || ''}
+            onChange={(e) => setForm({ ...form, siteUrl: e.target.value })}
+            className="w-full rounded-xl border border-[#c4c7c5] px-3 py-2 text-sm"
+          />
+          <p className="mt-1 text-[11px] text-[#747775]">
+            Telegram va ijtimoiy tarmoqlarda mahsulot ulashilganda rasmi va narxi to&apos;g&apos;ri chiqishi uchun rasmiy internet havolasi. Bo&apos;sh qoldirilsa, avtomatik aniqlanadi.
+          </p>
+        </div>
+
         <div>
           <label className="mb-1 block text-xs font-medium text-[#444746]">
             Ombor manzili (UZ)

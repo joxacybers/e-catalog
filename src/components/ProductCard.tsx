@@ -185,6 +185,7 @@ export function ProductCard({
           isOpen={shareOpen}
           onClose={() => setShareOpen(false)}
           product={product}
+          settings={settings}
         />
       </div>
     </div>

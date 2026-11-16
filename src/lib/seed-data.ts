@@ -8,6 +8,7 @@ export const SEED_CATALOG_DATA: CatalogData = {
     companyNameUz: 'E-Catalog',
     companyNameRu: 'E-Catalog',
     logoUrl: '',
+    siteUrl: '',
     subtitleUz: 'Ulgurji elektron katalog',
     subtitleRu: 'Оптовый электронный каталог',
     phonePrimary: '+998 90 123 45 67',

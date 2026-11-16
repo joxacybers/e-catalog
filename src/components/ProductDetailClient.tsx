@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import type { Category, Product, SiteSettings } from '@/types/catalog';
 import { useLanguage } from '@/context/LanguageContext';
@@ -28,8 +29,13 @@ export function ProductDetailClient({
 }) {
   const { lang, t } = useLanguage();
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const [shareOpen, setShareOpen] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const name = l(lang, product.nameUz, product.nameRu);
   const description = l(lang, product.descriptionUz, product.descriptionRu);
@@ -44,7 +50,7 @@ export function ProductDetailClient({
   );
 
   return (
-    <div className="mx-auto max-w-6xl px-3 py-4 sm:px-6 sm:py-6 space-y-6 sm:space-y-8 pb-24 sm:pb-8 w-full min-w-0 max-w-full overflow-hidden">
+    <div className="mx-auto max-w-6xl px-3 py-4 sm:px-6 sm:py-6 space-y-6 sm:space-y-8 pb-28 sm:pb-24 w-full min-w-0 max-w-full overflow-hidden">
       {/* Back Button */}
       <div className="flex items-center justify-between gap-3">
         <button
@@ -271,44 +277,81 @@ export function ProductDetailClient({
         isOpen={shareOpen}
         onClose={() => setShareOpen(false)}
         product={product}
+        settings={settings}
       />
 
-      {/* Mobile Sticky Floating Action Dock */}
-      <div
-        className="no-print fixed bottom-0 left-0 right-0 z-40 block sm:hidden bg-white/95 backdrop-blur-md border-t border-[#e0e2ec] px-3.5 py-2.5 shadow-[0_-4px_16px_rgba(0,0,0,0.08)]"
-        style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 10px)' }}
-      >
-        <div className="flex items-center gap-2">
-          <a
-            href={directTelegramHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 inline-flex items-center justify-center gap-1.5 h-11 px-4 rounded-full bg-[#0b57d0] text-white active:scale-95 text-xs font-semibold transition-all shadow-2xs"
+      {/* Sticky Floating Action Bar (Pinned to viewport bottom on both mobile and PC) */}
+      {mounted &&
+        createPortal(
+          <div
+            className="no-print fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#c4c7c5]/60 shadow-[0_-4px_24px_rgba(0,0,0,0.1)] transition-all duration-200"
+            style={{
+              paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 10px)',
+            }}
           >
-            <M3Icon name="send" className="text-[17px]" />
-            <span>{t.product.askTelegram}</span>
-          </a>
+            <div className="mx-auto max-w-6xl px-3 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between gap-2.5 sm:gap-4">
+              {/* Product preview & price info */}
+              <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                <img
+                  src={product.images[activeImageIdx] || product.images[0]}
+                  alt={name}
+                  className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl object-contain bg-[#f3f6fc] p-1 border border-[#e0e2ec] shrink-0"
+                />
+                <div className="min-w-0">
+                  <div className="text-xs sm:text-sm font-bold text-[#1f1f1f] truncate max-w-[130px] xs:max-w-[200px] sm:max-w-xs md:max-w-md">
+                    {name}
+                  </div>
+                  <div className="flex items-baseline gap-1.5 text-xs">
+                    <span className="font-bold text-[#0b57d0]">
+                      {formatPrice(product.packPrice, lang)}
+                    </span>
+                    <span className="text-[11px] text-[#747775] truncate hidden sm:inline">
+                      / 1 {packType} ({product.packQuantity} {unitName})
+                    </span>
+                  </div>
+                </div>
+              </div>
 
-          <a
-            href={formatPhoneHref(settings.phonePrimary)}
-            className="inline-flex items-center justify-center h-11 w-11 rounded-full bg-[#c2e7ff] text-[#001d35] active:scale-95 transition-all shadow-2xs shrink-0"
-            title={settings.phonePrimary}
-            aria-label="Qo'ng'iroq qilish"
-          >
-            <M3Icon name="call" className="text-[18px]" />
-          </a>
+              {/* Action Buttons: Telegramdan so'rash, Telefon, Ulashish */}
+              <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+                {/* Telegram ask / order button */}
+                <a
+                  href={directTelegramHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-1.5 h-10 sm:h-11 px-3.5 sm:px-5 rounded-full bg-[#0b57d0] text-white hover:bg-[#0842a0] active:scale-95 text-xs sm:text-sm font-semibold transition-all shadow-2xs cursor-pointer"
+                >
+                  <M3Icon name="send" className="text-[16px] sm:text-[18px]" />
+                  <span className="truncate">{t.product.askTelegram}</span>
+                </a>
 
-          <button
-            type="button"
-            onClick={() => setShareOpen(true)}
-            className="inline-flex items-center justify-center h-11 w-11 rounded-full bg-[#f3f6fc] text-[#1f1f1f] border border-[#c4c7c5]/60 active:scale-95 transition-all shadow-2xs shrink-0 cursor-pointer"
-            title={t.product.shareBtn}
-            aria-label={t.product.shareBtn}
-          >
-            <M3Icon name="share" className="text-[18px]" />
-          </button>
-        </div>
-      </div>
+                {/* Call phone button */}
+                <a
+                  href={formatPhoneHref(settings.phonePrimary)}
+                  className="inline-flex items-center justify-center gap-1.5 h-10 sm:h-11 px-3 sm:px-4 rounded-full bg-[#c2e7ff] text-[#001d35] hover:bg-[#b0dcf5] active:scale-95 text-xs sm:text-sm font-semibold transition-all shadow-2xs cursor-pointer shrink-0"
+                  title={`${t.product.callNow}: ${settings.phonePrimary}`}
+                  aria-label={t.product.callNow}
+                >
+                  <M3Icon name="call" className="text-[17px] sm:text-[18px]" />
+                  <span className="hidden md:inline font-mono">{settings.phonePrimary}</span>
+                </a>
+
+                {/* Share button */}
+                <button
+                  type="button"
+                  onClick={() => setShareOpen(true)}
+                  className="inline-flex items-center justify-center gap-1.5 h-10 sm:h-11 px-3 sm:px-4 rounded-full bg-[#f3f6fc] text-[#1f1f1f] hover:bg-[#e0e2ec] hover:text-[#0b57d0] border border-[#c4c7c5]/70 active:scale-95 text-xs sm:text-sm font-semibold transition-all shadow-2xs shrink-0 cursor-pointer"
+                  title={t.product.shareBtn}
+                  aria-label={t.product.shareBtn}
+                >
+                  <M3Icon name="share" className="text-[17px] sm:text-[18px]" />
+                  <span className="hidden lg:inline">{t.product.shareBtn}</span>
+                </button>
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
     </div>
   );
 }

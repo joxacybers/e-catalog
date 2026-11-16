@@ -50,6 +50,7 @@ export interface SiteSettings {
   companyNameUz: string;
   companyNameRu: string;
   logoUrl?: string;
+  siteUrl?: string;
   subtitleUz: string;
   subtitleRu: string;
   phonePrimary: string;
