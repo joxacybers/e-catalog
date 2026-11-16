@@ -30,14 +30,14 @@ export function FloatingCartButton() {
     <div
       className={`no-print fixed z-40 transition-all duration-300 ${
         isProductDetail
-          ? 'bottom-20 right-4 sm:bottom-20 sm:right-6'
-          : 'bottom-20 right-4 sm:bottom-6 sm:right-6'
+          ? 'bottom-28 sm:bottom-28 right-4 sm:right-6'
+          : 'bottom-24 sm:bottom-8 right-4 sm:right-6'
       }`}
     >
       <button
         type="button"
         onClick={openCart}
-        className="group flex items-center gap-2.5 rounded-full bg-[#0b57d0] pl-3.5 pr-4 py-2.5 text-white shadow-lg hover:bg-[#0842a0] hover:shadow-xl active:scale-95 transition-all cursor-pointer border border-white/20 animate-in slide-in-from-bottom-4 duration-200"
+        className="group flex items-center gap-2.5 rounded-full bg-[#0b57d0] pl-3.5 pr-4 py-2.5 text-white shadow-[0_8px_24px_rgba(11,87,208,0.35)] hover:bg-[#0842a0] hover:shadow-[0_12px_28px_rgba(11,87,208,0.45)] hover:-translate-y-0.5 active:scale-95 transition-all cursor-pointer border border-white/20 animate-in slide-in-from-bottom-4 duration-200"
         aria-label="Savatni ochish"
       >
         <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-white/15">
