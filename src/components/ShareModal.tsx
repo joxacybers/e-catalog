@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import type { Product } from '@/types/catalog';
 import { useLanguage } from '@/context/LanguageContext';
-import { formatPrice, l } from '@/lib/i18n';
+import { formatNumber, formatPrice, l } from '@/lib/i18n';
 import { M3Icon } from './m3/MaterialWebLoader';
 
 interface ShareModalProps {
@@ -15,6 +15,7 @@ interface ShareModalProps {
 export function ShareModal({ isOpen, onClose, product }: ShareModalProps) {
   const { lang, t } = useLanguage();
   const [copied, setCopied] = useState(false);
+  const [copiedText, setCopiedText] = useState(false);
   const [origin, setOrigin] = useState('');
 
   useEffect(() => {
@@ -26,6 +27,7 @@ export function ShareModal({ isOpen, onClose, product }: ShareModalProps) {
   useEffect(() => {
     if (!isOpen) {
       setCopied(false);
+      setCopiedText(false);
     }
   }, [isOpen]);
 
@@ -42,14 +44,15 @@ export function ShareModal({ isOpen, onClose, product }: ShareModalProps) {
   if (!isOpen || !product) return null;
 
   const productName = l(lang, product.nameUz, product.nameRu);
+  const description = l(lang, product.descriptionUz, product.descriptionRu);
   const unitName = l(lang, product.unitNameUz, product.unitNameRu);
   const packType = l(lang, product.packTypeUz, product.packTypeRu);
   const productUrl = `${origin || ''}/product/${product.slug}`;
 
   const shareText =
     lang === 'uz'
-      ? `${productName}\n📦 1 ${packType} = ${product.packQuantity} ${unitName}\n💰 Ulgurji narxi: ${formatPrice(product.unitPrice, lang)} / dona (${formatPrice(product.packPrice, lang)} / ${packType})`
-      : `${productName}\n📦 1 ${packType} = ${product.packQuantity} ${unitName}\n💰 Оптовая цена: ${formatPrice(product.unitPrice, lang)} / ед. (${formatPrice(product.packPrice, lang)} / ${packType})`;
+      ? `🔹 ${productName}\n\n📝 Tavsifi: ${description}\n\n💰 1 ${unitName} narxi: ${formatPrice(product.unitPrice, 'uz')}\n📦 1 ${packType} (${product.packQuantity} ${unitName}): ${formatPrice(product.packPrice, 'uz')}\n📍 Omborda bor: ${formatNumber(product.stockPacks)} ${packType}\n\n🔗 Batafsil ko‘rish va buyurtma berish:`
+      : `🔹 ${productName}\n\n📝 Описание: ${description}\n\n💰 Цена за 1 ${unitName}: ${formatPrice(product.unitPrice, 'ru')}\n📦 1 ${packType} (${product.packQuantity} ${unitName}): ${formatPrice(product.packPrice, 'ru')}\n📍 На складе: ${formatNumber(product.stockPacks)} ${packType}\n\n🔗 Посмотреть и заказать:`;
 
   const handleCopy = async () => {
     try {
@@ -65,6 +68,26 @@ export function ShareModal({ isOpen, onClose, product }: ShareModalProps) {
       }
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
+    } catch {
+      // ignore
+    }
+  };
+
+  const handleCopyFullText = async () => {
+    const fullText = `${shareText}\n${productUrl}`;
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(fullText);
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = fullText;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
+      setCopiedText(true);
+      setTimeout(() => setCopiedText(false), 2500);
     } catch {
       // ignore
     }
@@ -254,6 +277,25 @@ export function ShareModal({ isOpen, onClose, product }: ShareModalProps) {
                 className="text-[16px]"
               />
               <span>{copied ? t.product.shareCopied : t.product.shareCopy}</span>
+            </button>
+          </div>
+
+          <div className="flex items-center gap-2 mt-2.5">
+            <button
+              type="button"
+              onClick={handleCopyFullText}
+              className={`flex-1 inline-flex items-center justify-center gap-1.5 h-9 px-3 rounded-full text-xs font-medium border transition-all cursor-pointer ${
+                copiedText
+                  ? 'bg-emerald-50 text-emerald-800 border-emerald-400 font-semibold'
+                  : 'bg-[#f8fafd] text-[#444746] border-[#c4c7c5]/70 hover:bg-[#edf2fa] hover:text-[#1f1f1f]'
+              }`}
+            >
+              <M3Icon name={copiedText ? 'check' : 'description'} className="text-[16px]" />
+              <span>
+                {copiedText
+                  ? (lang === 'uz' ? 'Tavsif va narx nusxalandi!' : 'Описание и цены скопированы!')
+                  : (lang === 'uz' ? 'To‘liq matnni nusxalash (tavsif + narx)' : 'Скопировать текст (описание + цены)')}
+              </span>
             </button>
           </div>
         </div>

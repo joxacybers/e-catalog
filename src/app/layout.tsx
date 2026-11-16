@@ -25,10 +25,18 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const dynamic = 'force-dynamic';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: 'E-Catalog — Elektron ulgurji katalog',
   description:
     'Mahsulotlarning ulgurji elektron katalogi. Ochiq narxlar va ombor qoldig‘i.',
+  openGraph: {
+    siteName: 'E-Catalog',
+    locale: 'uz_UZ',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
