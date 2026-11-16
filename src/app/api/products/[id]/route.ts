@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { deleteProduct, getProductByIdOrSlug, saveProduct } from '@/lib/db';
+import { isSessionValid } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,6 +26,11 @@ export async function PUT(
   context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const isAuth = await isSessionValid();
+    if (!isAuth) {
+      return NextResponse.json({ error: 'Ruxsat berilmagan (Unauthorized)' }, { status: 401 });
+    }
+
     const { id } = await context.params;
     const existing = getProductByIdOrSlug(id);
     if (!existing) {
@@ -50,6 +56,11 @@ export async function DELETE(
   context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const isAuth = await isSessionValid();
+    if (!isAuth) {
+      return NextResponse.json({ error: 'Ruxsat berilmagan (Unauthorized)' }, { status: 401 });
+    }
+
     const { id } = await context.params;
     const ok = deleteProduct(id);
     if (!ok) {

@@ -1,10 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { bulkUpdateStockAndPrices, type QuickUpdateItem } from '@/lib/db';
+import { isSessionValid } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
   try {
+    const isAuth = await isSessionValid();
+    if (!isAuth) {
+      return NextResponse.json({ error: 'Ruxsat berilmagan (Unauthorized)' }, { status: 401 });
+    }
+
     const body = await req.json();
     const updates: QuickUpdateItem[] = Array.isArray(body?.updates)
       ? body.updates

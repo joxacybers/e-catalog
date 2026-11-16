@@ -25,7 +25,6 @@ export function Navbar({ settings }: { settings: Omit<SiteSettings, 'adminPin'> 
     { href: '/', label: t.nav.catalog, matchExact: true },
     { href: '/price-list', label: t.nav.priceList },
     { href: '/contact', label: t.nav.contact },
-    { href: '/admin', label: t.nav.admin },
   ];
 
   const companyName = l(lang, settings.companyNameUz, settings.companyNameRu) || t.brandFallback;

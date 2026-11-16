@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { deleteCategory, getCategories, saveCategory } from '@/lib/db';
+import { isSessionValid } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,6 +16,11 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
+    const isAuth = await isSessionValid();
+    if (!isAuth) {
+      return NextResponse.json({ error: 'Ruxsat berilmagan (Unauthorized)' }, { status: 401 });
+    }
+
     const body = await req.json();
     if (!body?.nameUz) {
       return NextResponse.json({ error: 'nameUz is required' }, { status: 400 });
@@ -29,6 +35,11 @@ export async function POST(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
+    const isAuth = await isSessionValid();
+    if (!isAuth) {
+      return NextResponse.json({ error: 'Ruxsat berilmagan (Unauthorized)' }, { status: 401 });
+    }
+
     const id = req.nextUrl.searchParams.get('id');
     if (!id) {
       return NextResponse.json({ error: 'Category id is required' }, { status: 400 });

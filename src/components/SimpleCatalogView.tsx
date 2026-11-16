@@ -396,9 +396,9 @@ export function SimpleCatalogView({
           </div>
 
           {/* Desktop Full Table View */}
-          <div className="hidden md:block overflow-hidden rounded-[24px] border border-[#c4c7c5]/60 bg-white">
+          <div className="hidden md:block overflow-hidden rounded-[24px] border border-[#c4c7c5]/60 bg-white shadow-xs">
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[840px] text-left text-sm">
+              <table className="w-full min-w-[1020px] text-left text-sm">
                 <thead className="border-b border-[#e0e2ec] bg-[#f3f6fc] text-xs font-medium text-[#444746]">
                   <tr>
                     <th className="px-4 py-3.5">{t.priceList.colName}</th>
@@ -407,7 +407,7 @@ export function SimpleCatalogView({
                     <th className="px-4 py-3.5">{t.priceList.colStock}</th>
                     <th className="px-4 py-3.5 text-right">{t.priceList.colUnitPrice}</th>
                     <th className="px-4 py-3.5 text-right">{t.priceList.colPackPrice}</th>
-                    <th className="px-6 py-3.5 text-right w-[210px]">{t.admin.colAction}</th>
+                    <th className="pl-4 pr-7 py-3.5 text-right w-[240px] min-w-[240px]">{t.admin.colAction}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#e0e2ec]/70">
@@ -472,12 +472,12 @@ export function SimpleCatalogView({
                         <td className="px-4 py-3 text-right font-bold text-[#0b57d0] whitespace-nowrap">
                           {formatPrice(product.packPrice, lang)}
                         </td>
-                        <td className="px-6 py-3 text-right whitespace-nowrap">
+                        <td className="pl-4 pr-7 py-3 text-right whitespace-nowrap w-[240px] min-w-[240px]">
                           <div className="inline-flex items-center justify-end gap-1.5">
                             <button
                               type="button"
                               onClick={() => router.push(`/product/${product.slug}`)}
-                              className="inline-flex items-center justify-center h-8 px-3.5 rounded-full bg-[#c2e7ff] text-[#001d35] hover:bg-[#b0dcf5] text-xs font-semibold transition-colors cursor-pointer shadow-2xs"
+                              className="inline-flex items-center justify-center h-8 px-3.5 rounded-full bg-[#c2e7ff] text-[#001d35] hover:bg-[#b0dcf5] active:scale-95 text-xs font-semibold transition-all cursor-pointer shadow-2xs shrink-0"
                             >
                               {t.product.detailsBtn}
                             </button>
@@ -488,15 +488,16 @@ export function SimpleCatalogView({
                               )}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center justify-center gap-1.5 h-8 px-3.5 rounded-full bg-[#0b57d0] text-white hover:bg-[#0842a0] text-xs font-semibold transition-colors cursor-pointer shadow-2xs shrink-0"
+                              className="inline-flex items-center justify-center gap-1 h-8 px-3 rounded-full bg-[#0b57d0] text-white hover:bg-[#0842a0] active:scale-95 text-xs font-semibold transition-all cursor-pointer shadow-2xs shrink-0"
+                              title="Telegram"
                             >
-                              <M3Icon name="send" className="text-[14px]" />
-                              <span>Telegram</span>
+                              <M3Icon name="send" className="text-[13px]" />
+                              <span>TG</span>
                             </a>
                             <button
                               type="button"
                               onClick={() => setSharingProduct(product)}
-                              className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-[#f3f6fc] text-[#444746] hover:bg-[#d3e3fd] hover:text-[#0b57d0] transition-colors cursor-pointer shadow-2xs shrink-0 border border-[#e0e2ec]/80"
+                              className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-[#f3f6fc] text-[#444746] hover:bg-[#d3e3fd] hover:text-[#0b57d0] active:scale-95 transition-all cursor-pointer shadow-2xs shrink-0 border border-[#e0e2ec]/80"
                               title={t.product.shareBtn}
                               aria-label={t.product.shareBtn}
                             >

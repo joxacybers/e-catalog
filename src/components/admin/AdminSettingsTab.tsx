@@ -17,6 +17,45 @@ export function AdminSettingsTab({
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
+  // Security / PIN change state
+  const [currentPin, setCurrentPin] = useState('');
+  const [newPin, setNewPin] = useState('');
+  const [confirmPin, setConfirmPin] = useState('');
+  const [pinLoading, setPinLoading] = useState(false);
+  const [pinError, setPinError] = useState<string | null>(null);
+  const [pinSuccess, setPinSuccess] = useState<string | null>(null);
+
+  const handleChangePin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPinError(null);
+    setPinSuccess(null);
+
+    if (newPin !== confirmPin) {
+      setPinError('Yangi PIN-kodlar bir-biriga mos kelmadi');
+      return;
+    }
+
+    setPinLoading(true);
+    try {
+      const res = await fetch('/api/auth/change-pin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ currentPin, newPin }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setPinError(data.error || 'Xatolik yuz berdi');
+        return;
+      }
+      setPinSuccess(t.admin.pinChangedSuccess);
+      setCurrentPin('');
+      setNewPin('');
+      setConfirmPin('');
+    } finally {
+      setPinLoading(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
@@ -37,10 +76,11 @@ export function AdminSettingsTab({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="rounded-[24px] border border-[#c4c7c5]/60 bg-white p-6 space-y-6"
-    >
+    <div className="space-y-6">
+      <form
+        onSubmit={handleSubmit}
+        className="rounded-[24px] border border-[#c4c7c5]/60 bg-white p-6 space-y-6"
+      >
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#e0e2ec] pb-4">
         <h2 className="text-lg font-semibold text-[#1f1f1f]">{t.admin.tabSettings}</h2>
         <div className="flex items-center gap-3">
@@ -242,19 +282,93 @@ export function AdminSettingsTab({
             className="w-full rounded-xl border border-[#c4c7c5] px-3 py-2 text-sm"
           />
         </div>
+      </div>
+    </form>
 
+    {/* Dedicated Security & PIN Change Form */}
+    <form
+      onSubmit={handleChangePin}
+      className="rounded-[24px] border border-[#c4c7c5]/60 bg-white p-6 space-y-5"
+    >
+      <div className="flex items-center gap-3 border-b border-[#e0e2ec] pb-4">
+        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#d3e3fd] text-[#041e49]">
+          <M3Icon name="security" className="text-[20px]" />
+        </div>
+        <div>
+          <h3 className="text-base font-semibold text-[#1f1f1f]">
+            {t.admin.securityTitle}
+          </h3>
+          <p className="text-xs text-[#444746]">
+            {t.admin.securitySubtitle}
+          </p>
+        </div>
+      </div>
+
+      {pinError && (
+        <div className="rounded-xl bg-rose-50 border border-rose-200 px-4 py-2.5 text-xs font-semibold text-rose-800">
+          {pinError}
+        </div>
+      )}
+
+      {pinSuccess && (
+        <div className="rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-2.5 text-xs font-semibold text-emerald-800">
+          {pinSuccess}
+        </div>
+      )}
+
+      <div className="grid gap-4 sm:grid-cols-3">
         <div>
           <label className="mb-1 block text-xs font-medium text-[#444746]">
-            Admin PIN-kod
+            {t.admin.currentPin}
           </label>
           <input
-            type="text"
-            value={form.adminPin}
-            onChange={(e) => setForm({ ...form, adminPin: e.target.value })}
-            className="w-full rounded-xl border border-[#c4c7c5] px-3 py-2 text-sm font-mono"
+            type="password"
+            value={currentPin}
+            onChange={(e) => setCurrentPin(e.target.value)}
+            placeholder="••••"
+            required
+            className="w-full rounded-xl border border-[#c4c7c5] bg-[#f8fafd] px-3 py-2 text-sm font-mono tracking-widest focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0b57d0]"
+          />
+        </div>
+        <div>
+          <label className="mb-1 block text-xs font-medium text-[#444746]">
+            {t.admin.newPin}
+          </label>
+          <input
+            type="password"
+            value={newPin}
+            onChange={(e) => setNewPin(e.target.value)}
+            placeholder="••••"
+            required
+            className="w-full rounded-xl border border-[#c4c7c5] bg-[#f8fafd] px-3 py-2 text-sm font-mono tracking-widest focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0b57d0]"
+          />
+        </div>
+        <div>
+          <label className="mb-1 block text-xs font-medium text-[#444746]">
+            {t.admin.confirmNewPin}
+          </label>
+          <input
+            type="password"
+            value={confirmPin}
+            onChange={(e) => setConfirmPin(e.target.value)}
+            placeholder="••••"
+            required
+            className="w-full rounded-xl border border-[#c4c7c5] bg-[#f8fafd] px-3 py-2 text-sm font-mono tracking-widest focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0b57d0]"
           />
         </div>
       </div>
+
+      <div className="flex justify-end pt-2">
+        <button
+          type="submit"
+          disabled={pinLoading || !currentPin || !newPin || !confirmPin}
+          className="inline-flex items-center gap-2 h-10 px-5 rounded-full bg-[#041e49] text-white hover:bg-[#0842a0] text-xs sm:text-sm font-semibold transition-all disabled:opacity-40 cursor-pointer shadow-2xs"
+        >
+          <M3Icon name="lock_reset" className="text-[18px]" />
+          <span>{pinLoading ? t.admin.saving : t.admin.changePin}</span>
+        </button>
+      </div>
     </form>
+  </div>
   );
 }

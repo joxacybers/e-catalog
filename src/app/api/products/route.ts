@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getProducts, saveProduct } from '@/lib/db';
+import { isSessionValid } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,6 +16,11 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
+    const isAuth = await isSessionValid();
+    if (!isAuth) {
+      return NextResponse.json({ error: 'Ruxsat berilmagan (Unauthorized)' }, { status: 401 });
+    }
+
     const body = await req.json();
     if (!body?.nameUz || !body?.categoryId) {
       return NextResponse.json(
