@@ -55,6 +55,8 @@
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+    max-width: 100%;
   }
 
   body {
@@ -62,6 +64,9 @@
     color: var(--md-sys-color-on-surface);
     font-family: var(--md-ref-typeface-plain);
     -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    max-width: 100%;
+    position: relative;
   }
 
   h1, h2, h3, h4 {

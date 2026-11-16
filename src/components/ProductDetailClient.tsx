@@ -44,7 +44,7 @@ export function ProductDetailClient({
   );
 
   return (
-    <div className="mx-auto max-w-6xl px-3 py-4 sm:px-6 sm:py-6 space-y-6 sm:space-y-8 pb-24 sm:pb-8">
+    <div className="mx-auto max-w-6xl px-3 py-4 sm:px-6 sm:py-6 space-y-6 sm:space-y-8 pb-24 sm:pb-8 w-full min-w-0 max-w-full overflow-hidden">
       {/* Back Button */}
       <div className="flex items-center justify-between gap-3">
         <button
@@ -62,7 +62,7 @@ export function ProductDetailClient({
       </div>
 
       {/* Single Clean M3 Surface Card */}
-      <div className="rounded-[24px] sm:rounded-[28px] border border-[#c4c7c5]/60 bg-white p-4 sm:p-8 shadow-2xs">
+      <div className="rounded-[24px] sm:rounded-[28px] border border-[#c4c7c5]/60 bg-white p-4 sm:p-8 shadow-2xs w-full min-w-0 max-w-full overflow-hidden">
         <div className="grid gap-6 sm:gap-8 lg:grid-cols-12">
           {/* Left: Product Image */}
           <div className="lg:col-span-5 space-y-3">

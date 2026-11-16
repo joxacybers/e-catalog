@@ -122,7 +122,7 @@ export function SimpleCatalogView({
   };
 
   return (
-    <div className="mx-auto max-w-7xl px-3 py-3 sm:px-6 sm:py-5 space-y-3.5 sm:space-y-4">
+    <div className="mx-auto max-w-7xl px-3 py-3 sm:px-6 sm:py-5 space-y-3.5 sm:space-y-4 w-full min-w-0 max-w-full">
       {/* Search Input - Clean & Prominent */}
       <div className="relative w-full">
         <M3Icon
@@ -148,7 +148,7 @@ export function SimpleCatalogView({
       </div>
 
       {/* M3 Category Filter Chips with Smooth Edge-to-Edge Scroll on Mobile */}
-      <div className="-mx-3 px-3 sm:mx-0 sm:px-0 overflow-x-auto no-scrollbar">
+      <div className="overflow-x-auto no-scrollbar w-full min-w-0">
         <div className="flex items-center gap-1.5 sm:gap-2 pb-0.5">
           <button
             type="button"
@@ -277,7 +277,7 @@ export function SimpleCatalogView({
           </div>
         </div>
       ) : viewMode === 'grid' ? (
-        <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full min-w-0">
           {filteredProducts.map((product) => (
             <ProductCard
               key={product.id}
@@ -288,9 +288,9 @@ export function SimpleCatalogView({
           ))}
         </div>
       ) : (
-        <div>
+        <div className="w-full min-w-0">
           {/* Mobile List View (Optimized for one-hand touch browsing) */}
-          <div className="space-y-3 md:hidden">
+          <div className="space-y-3 md:hidden w-full min-w-0">
             {filteredProducts.map((product) => {
               const name = l(lang, product.nameUz, product.nameRu);
               const unitName = l(lang, product.unitNameUz, product.unitNameRu);
@@ -300,9 +300,9 @@ export function SimpleCatalogView({
               return (
                 <div
                   key={product.id}
-                  className="rounded-[20px] border border-[#c4c7c5]/60 bg-white p-3.5 shadow-2xs space-y-3 transition-shadow hover:shadow-xs"
+                  className="rounded-[20px] border border-[#c4c7c5]/60 bg-white p-3.5 shadow-2xs space-y-3 transition-shadow hover:shadow-xs w-full min-w-0 max-w-full overflow-hidden"
                 >
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-start gap-3 w-full min-w-0">
                     <img
                       src={product.images[0]}
                       alt={name}
@@ -314,12 +314,12 @@ export function SimpleCatalogView({
                           {product.sku}
                         </span>
                         {stockState === 'in_stock' && (
-                          <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">
+                          <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full truncate max-w-[140px]">
                             {formatNumber(product.stockPacks)} {packType}
                           </span>
                         )}
                         {stockState === 'low_stock' && (
-                          <span className="text-[10px] font-semibold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full">
+                          <span className="text-[10px] font-semibold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full truncate max-w-[140px]">
                             {formatNumber(product.stockPacks)} {packType}
                           </span>
                         )}
@@ -333,26 +333,26 @@ export function SimpleCatalogView({
                       <Link
                         href={`/product/${product.slug}`}
                         prefetch={true}
-                        className="mt-1 block font-semibold text-sm text-[#1f1f1f] hover:text-[#0b57d0] leading-snug line-clamp-2"
+                        className="mt-1 block font-semibold text-sm text-[#1f1f1f] hover:text-[#0b57d0] leading-snug line-clamp-2 break-words"
                       >
                         {name}
                       </Link>
 
-                      <div className="mt-1 text-[11px] text-[#444746]">
+                      <div className="mt-1 text-[11px] text-[#444746] truncate">
                         1 {packType} = {product.packQuantity} {unitName}
                       </div>
                     </div>
                   </div>
 
                   {/* Mobile Price Row */}
-                  <div className="flex items-center justify-between rounded-xl bg-[#f3f6fc] px-3 py-2 text-xs">
-                    <div>
+                  <div className="flex items-center justify-between rounded-xl bg-[#f3f6fc] px-3 py-2 text-xs w-full min-w-0 gap-2">
+                    <div className="min-w-0 truncate">
                       <span className="text-[#444746] text-[11px]">1 {unitName}:</span>{' '}
                       <strong className="text-[#1f1f1f] font-semibold">
                         {formatPrice(product.unitPrice, lang)}
                       </strong>
                     </div>
-                    <div>
+                    <div className="shrink-0 whitespace-nowrap">
                       <span className="text-[#444746] text-[11px]">1 {packType}:</span>{' '}
                       <strong className="text-[#0b57d0] font-bold">
                         {formatPrice(product.packPrice, lang)}
@@ -361,11 +361,11 @@ export function SimpleCatalogView({
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex items-center gap-1.5 pt-0.5">
+                  <div className="flex items-center gap-1.5 pt-0.5 w-full min-w-0">
                     <button
                       type="button"
                       onClick={() => router.push(`/product/${product.slug}`)}
-                      className="flex-1 inline-flex items-center justify-center h-9 px-3 rounded-full bg-[#c2e7ff] text-[#001d35] hover:bg-[#b0dcf5] active:scale-95 text-xs font-semibold transition-all cursor-pointer shadow-2xs truncate"
+                      className="flex-1 min-w-0 inline-flex items-center justify-center h-9 px-2.5 rounded-full bg-[#c2e7ff] text-[#001d35] hover:bg-[#b0dcf5] active:scale-95 text-xs font-semibold transition-all cursor-pointer shadow-2xs truncate"
                     >
                       {t.product.detailsBtn}
                     </button>
@@ -376,7 +376,7 @@ export function SimpleCatalogView({
                       )}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-1 h-9 px-3.5 rounded-full bg-[#0b57d0] text-white hover:bg-[#0842a0] active:scale-95 text-xs font-semibold transition-all cursor-pointer shadow-2xs shrink-0"
+                      className="inline-flex items-center justify-center gap-1 h-9 px-3 rounded-full bg-[#0b57d0] text-white hover:bg-[#0842a0] active:scale-95 text-xs font-semibold transition-all cursor-pointer shadow-2xs shrink-0"
                     >
                       <M3Icon name="send" className="text-[14px]" />
                       <span>Telegram</span>

@@ -48,7 +48,7 @@ export default function RootLayout({
             <NavigationProgressBar />
           </Suspense>
           <Navbar settings={publicSettings} />
-          <main className="flex-1 pb-16 sm:pb-0 flex flex-col">
+          <main className="flex-1 pb-16 sm:pb-0 flex flex-col w-full min-w-0 max-w-full overflow-x-hidden">
             <PageTransition>{children}</PageTransition>
           </main>
           <Footer settings={publicSettings} />
