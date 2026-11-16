@@ -19,22 +19,522 @@
   },
   "categories": [
     {
-      "id": "cat-1794799084416",
-      "slug": "uy-tozalash-vositalari-maishiy-kimyo",
-      "nameUz": "Uy tozalash vositalari / Maishiy kimyo",
-      "nameRu": "Средства для уборки / Бытовая химия",
-      "descriptionUz": "Uy, oshxona, pol va oynalarni tozalash uchun barcha vositalar — belizna, tozalash kukunlari, lattalar va salfetkalar. Ulgurji narxlarda.",
-      "descriptionRu": "Всё для уборки дома, кухни, пола и стёкол — белизна, чистящие порошки, тряпки и салфетки. По оптовым ценам.",
-      "icon": "sparkles",
+      "id": "cat-maishiy-kimyo",
+      "slug": "maishiy-kimyo",
+      "nameUz": "Maishiy kimyo",
+      "nameRu": "Бытовая химия",
+      "descriptionUz": "Idish yuvish gellari, xlorli dezinfeksiya va tozalash vositalari.",
+      "descriptionRu": "Гели для посуды, хлорные дезинфицирующие и чистящие средства.",
+      "icon": "sanitizer",
       "sortOrder": 1
+    },
+    {
+      "id": "cat-lattalar",
+      "slug": "lattalar",
+      "nameUz": "Lattalar",
+      "nameRu": "Тряпки и салфетки",
+      "descriptionUz": "Mikrofibra universal lattalar, antistatik chang artgichlar va pol nasadkalari.",
+      "descriptionRu": "Универсальные салфетки из микрофибры, насадки для пола и салфетки для пыли.",
+      "icon": "dry_cleaning",
+      "sortOrder": 2
+    },
+    {
+      "id": "cat-horeca",
+      "slug": "horeca",
+      "nameUz": "HoReCa",
+      "nameRu": "HoReCa (Для бизнеса)",
+      "descriptionUz": "Mehmonxona, restoran va ofislar uchun dispenserlar, Z-taxlamli va jumbo sochiqlar.",
+      "descriptionRu": "Диспенсеры, полотенца Z-сложения и джамбо рулоны для ресторанов, отелей и офисов.",
+      "icon": "domain",
+      "sortOrder": 3
+    },
+    {
+      "id": "cat-salfetka",
+      "slug": "salfetka",
+      "nameUz": "Salfetka",
+      "nameRu": "Салфетки и бумага",
+      "descriptionUz": "Oshxona qog'oz sochiqlari va klapanli nam salfetkalar.",
+      "descriptionRu": "Кухонные бумажные полотенца и влажные салфетки с клапаном.",
+      "icon": "layers",
+      "sortOrder": 4
     }
   ],
   "products": [
     {
+      "id": "prod-dmst-1000",
+      "slug": "domestos-xlorli-tozalash-geli-1000-ml",
+      "sku": "DMST-1000",
+      "categoryId": "cat-maishiy-kimyo",
+      "nameUz": "Domestos Xlorli Tozalash Geli - 1000 ml",
+      "nameRu": "Domestos Хлорный Чистящий Гель - 1000 мл",
+      "descriptionUz": "Qalin konsentrlangan gel barcha turdagi mikroblarni yo‘qotadi va yuzalarni chuqur dezinfeksiya qiladi. Unitaz, vanna va plitkalar uchun mukammal tozalik beradi.",
+      "descriptionRu": "Густой чистящий гель уничтожает все известные микробы и глубоко дезинфицирует поверхности. Обеспечивает идеальную чистоту и блеск для унитазов, ванн и кафеля.",
+      "unitPrice": 28500,
+      "packPrice": 342000,
+      "packQuantity": 12,
+      "unitNameUz": "dona",
+      "unitNameRu": "шт",
+      "packTypeUz": "blok",
+      "packTypeRu": "блок",
+      "inStock": true,
+      "stockPacks": 45,
+      "lowStockThreshold": 10,
+      "isNew": true,
+      "isFeatured": true,
+      "isSpecialOffer": false,
+      "images": [
+        "/images/products/dmst-1000.jpg"
+      ],
+      "specs": [
+        {
+          "labelUz": "Hajmi",
+          "labelRu": "Объем",
+          "valueUz": "1000 ml",
+          "valueRu": "1000 мл"
+        },
+        {
+          "labelUz": "Turi",
+          "labelRu": "Тип",
+          "valueUz": "Xlorli dezinfeksiya geli",
+          "valueRu": "Хлорный гель"
+        },
+        {
+          "labelUz": "Qadoq",
+          "labelRu": "Упаковка",
+          "valueUz": "1 blok = 12 dona",
+          "valueRu": "1 блок = 12 шт"
+        }
+      ],
+      "updatedAt": "2026-11-16T11:24:00.000Z"
+    },
+    {
+      "id": "prod-dlf-4040",
+      "slug": "delfin-universal-mikrofibra-latta-40x40-sm",
+      "sku": "DLF-4040",
+      "categoryId": "cat-lattalar",
+      "nameUz": "Delfin Universal Mikrofibra Latta (40x40 sm)",
+      "nameRu": "Универсальная салфетка из микрофибры Delfin (40x40 см)",
+      "descriptionUz": "Qalin mikrofibra matosi chang va kirlarni izsiz tozalaydi, suvni o‘ziga a’lo darajada tortadi. Mebel, oyna va maishiy texnikalarni chizmasdan tozalash uchun mo‘ljallangan.",
+      "descriptionRu": "Плотная салфетка из микрофибры отлично впитывает влагу и удаляет загрязнения без разводов. Безопасна для деликатных поверхностей, мебели, зеркал и техники.",
+      "unitPrice": 12000,
+      "packPrice": 240000,
+      "packQuantity": 20,
+      "unitNameUz": "dona",
+      "unitNameRu": "шт",
+      "packTypeUz": "paket",
+      "packTypeRu": "пакет",
+      "inStock": true,
+      "stockPacks": 80,
+      "lowStockThreshold": 15,
+      "isNew": true,
+      "isFeatured": true,
+      "isSpecialOffer": false,
+      "images": [
+        "/images/products/dlf-4040.jpg"
+      ],
+      "specs": [
+        {
+          "labelUz": "O‘lchami",
+          "labelRu": "Размер",
+          "valueUz": "40 x 40 sm",
+          "valueRu": "40 x 40 см"
+        },
+        {
+          "labelUz": "Materiali",
+          "labelRu": "Материал",
+          "valueUz": "Qalin mikrofibra",
+          "valueRu": "Плотная микрофибра"
+        },
+        {
+          "labelUz": "Qadoq",
+          "labelRu": "Упаковка",
+          "valueUz": "1 paket = 20 dona",
+          "valueRu": "1 пакет = 20 шт"
+        }
+      ],
+      "updatedAt": "2026-11-16T11:24:00.000Z"
+    },
+    {
+      "id": "prod-chng-3535",
+      "slug": "antistatik-chang-yiguvchi-latta-35x35-sm",
+      "sku": "CHNG-3535",
+      "categoryId": "cat-lattalar",
+      "nameUz": "Antistatik Chang Yig‘uvchi Latta (35x35 sm)",
+      "nameRu": "Антистатическая салфетка для пыли (35x35 см)",
+      "descriptionUz": "Maxsus tola changni havoga ko‘tarmasdan o‘ziga mahkam tortib oladi. Quruq tozalash uchun qulay bo‘lib, yuzalarga antistatik himoya beradi.",
+      "descriptionRu": "Особое электростатическое волокно притягивает пыль, не поднимая её в воздух. Идеально для сухой уборки офисов и дома, оставляет длительный антистатический эффект.",
+      "unitPrice": 9500,
+      "packPrice": 228000,
+      "packQuantity": 24,
+      "unitNameUz": "dona",
+      "unitNameRu": "шт",
+      "packTypeUz": "paket",
+      "packTypeRu": "пакет",
+      "inStock": true,
+      "stockPacks": 65,
+      "lowStockThreshold": 12,
+      "isNew": false,
+      "isFeatured": false,
+      "isSpecialOffer": false,
+      "images": [
+        "/images/products/chng-3535.jpg"
+      ],
+      "specs": [
+        {
+          "labelUz": "O‘lchami",
+          "labelRu": "Размер",
+          "valueUz": "35 x 35 sm",
+          "valueRu": "35 x 35 см"
+        },
+        {
+          "labelUz": "Xususiyati",
+          "labelRu": "Свойство",
+          "valueUz": "Antistatik tola",
+          "valueRu": "Антистатическое волокно"
+        },
+        {
+          "labelUz": "Qadoq",
+          "labelRu": "Упаковка",
+          "valueUz": "1 paket = 24 dona",
+          "valueRu": "1 пакет = 24 шт"
+        }
+      ],
+      "updatedAt": "2026-11-16T11:24:00.000Z"
+    },
+    {
+      "id": "prod-disp-1000",
+      "slug": "sensorli-suyuq-sovun-dispenseri-1000-ml",
+      "sku": "DISP-1000",
+      "categoryId": "cat-horeca",
+      "nameUz": "Sensorli Suyuq Sovun Dispenseri - 1000 ml",
+      "nameRu": "Сенсорный дозатор жидкого мыла - 1000 мл",
+      "descriptionUz": "Qo‘l tegizmasdan ishlovchi avtomatik sensor gigiyena talablariga to‘liq javob beradi. Mehmonxona, restoran va ofislar uchun tejamkor va qulay yechim.",
+      "descriptionRu": "Бесконтактный автоматический сенсор обеспечивает максимальную гигиену при каждом использовании. Экономичный и стильный дозатор для ресторанов, отелей и офисов.",
+      "unitPrice": 185000,
+      "packPrice": 1110000,
+      "packQuantity": 6,
+      "unitNameUz": "dona",
+      "unitNameRu": "шт",
+      "packTypeUz": "quti",
+      "packTypeRu": "коробка",
+      "inStock": true,
+      "stockPacks": 30,
+      "lowStockThreshold": 5,
+      "isNew": true,
+      "isFeatured": true,
+      "isSpecialOffer": false,
+      "images": [
+        "/images/products/disp-1000.jpg"
+      ],
+      "specs": [
+        {
+          "labelUz": "Sig‘imi",
+          "labelRu": "Вместимость",
+          "valueUz": "1000 ml",
+          "valueRu": "1000 мл"
+        },
+        {
+          "labelUz": "Mexanizm",
+          "labelRu": "Механизм",
+          "valueUz": "Avtomatik IQ-sensor",
+          "valueRu": "Автоматический ИК-сенсор"
+        },
+        {
+          "labelUz": "Qadoq",
+          "labelRu": "Упаковка",
+          "valueUz": "1 quti = 6 dona",
+          "valueRu": "1 коробка = 6 шт"
+        }
+      ],
+      "updatedAt": "2026-11-16T11:24:00.000Z"
+    },
+    {
+      "id": "prod-blt-kitch",
+      "slug": "bulut-oshxona-qogoz-sochiqlari-2-rulon-2-qavatli",
+      "sku": "BLT-KITCH",
+      "categoryId": "cat-salfetka",
+      "nameUz": "Bulut Oshxona Qog‘oz Sochiqlari (2 rulon, 2 qavatli)",
+      "nameRu": "Бумажные полотенца Bulut (2 рулона, 2 слоя)",
+      "descriptionUz": "100% tabiiy sellyulozadan tayyorlangan, yog‘ va suvni tezda o‘ziga shimib oladi. Taom tayyorlashda va oshxona yuzalarini tozalashda juda qulay.",
+      "descriptionRu": "Изготовлены из 100% первичной целлюлозы, моментально впитывают влагу и жир. Незаменимы для приготовления пищи и быстрой уборки на кухне.",
+      "unitPrice": 14000,
+      "packPrice": 168000,
+      "packQuantity": 12,
+      "unitNameUz": "blok (2 rulon)",
+      "unitNameRu": "блок (2 рул)",
+      "packTypeUz": "blok",
+      "packTypeRu": "блок",
+      "inStock": true,
+      "stockPacks": 95,
+      "lowStockThreshold": 20,
+      "isNew": false,
+      "isFeatured": true,
+      "isSpecialOffer": false,
+      "images": [
+        "/images/products/blt-kitch.jpg"
+      ],
+      "specs": [
+        {
+          "labelUz": "Qavati",
+          "labelRu": "Слойность",
+          "valueUz": "2 qavatli sellyuloza",
+          "valueRu": "2 слоя, 100% целлюлоза"
+        },
+        {
+          "labelUz": "Qadoqda",
+          "labelRu": "В упаковке",
+          "valueUz": "2 rulon",
+          "valueRu": "2 рулона"
+        },
+        {
+          "labelUz": "Katta qadoq",
+          "labelRu": "Групповая упаковка",
+          "valueUz": "1 blok = 12 pachka (24 rulon)",
+          "valueRu": "1 блок = 12 пачек (24 рулона)"
+        }
+      ],
+      "updatedAt": "2026-11-16T11:24:00.000Z"
+    },
+    {
+      "id": "prod-hrc-z200",
+      "slug": "horeca-z-taxlamli-qogoz-sochiqlar-200-varaq",
+      "sku": "HRC-Z200",
+      "categoryId": "cat-horeca",
+      "nameUz": "HoReCa Z-Taxlamli Qog‘oz Sochiqlar (200 varaq)",
+      "nameRu": "Листовые бумажные полотенца Z-сложения HoReCa (200 листов)",
+      "descriptionUz": "Dispenserlar uchun qulay Z-taxlam bittadan chiqishni ta’minlab, ortiqcha isrofni kamaytiradi. Namlikka chidamli, yirtilmaydigan yumshoq teksturaga ega.",
+      "descriptionRu": "Листовое Z-сложение обеспечивает поштучную гигиеничную подачу из диспенсера и снижает расход. Мягкие, прочные полотенца не размокают и отлично сушат руки.",
+      "unitPrice": 9800,
+      "packPrice": 196000,
+      "packQuantity": 20,
+      "unitNameUz": "pachka",
+      "unitNameRu": "пачка",
+      "packTypeUz": "korobka",
+      "packTypeRu": "коробка",
+      "inStock": true,
+      "stockPacks": 110,
+      "lowStockThreshold": 25,
+      "isNew": true,
+      "isFeatured": false,
+      "isSpecialOffer": false,
+      "images": [
+        "/images/products/hrc-z200.jpg"
+      ],
+      "specs": [
+        {
+          "labelUz": "Taxlam turi",
+          "labelRu": "Тип сложения",
+          "valueUz": "Z-taxlam",
+          "valueRu": "Z-сложение"
+        },
+        {
+          "labelUz": "Varaqlar soni",
+          "labelRu": "Количество листов",
+          "valueUz": "200 varaq",
+          "valueRu": "200 листов"
+        },
+        {
+          "labelUz": "Qadoq",
+          "labelRu": "Упаковка",
+          "valueUz": "1 korobka = 20 pachka (4000 varaq)",
+          "valueRu": "1 коробка = 20 пачек (4000 листов)"
+        }
+      ],
+      "updatedAt": "2026-11-16T11:24:00.000Z"
+    },
+    {
+      "id": "prod-blt-wet120",
+      "slug": "bulut-klapanli-nam-salfetkalar-120-dona-aloe-vera",
+      "sku": "BLT-WET120",
+      "categoryId": "cat-salfetka",
+      "nameUz": "Bulut Klapanli Nam Salfetkalar (120 dona, Aloe Vera)",
+      "nameRu": "Влажные салфетки с клапаном Bulut (120 шт, Алоэ Вера)",
+      "descriptionUz": "Plastik klapan salfetkalarning qurib qolishini oldini olib, uzoq vaqt yangi saqlaydi. Tarkibidagi aloe ekstrakti terini yumshoq parvarishlab, yoqimli hid taratadi.",
+      "descriptionRu": "Защитный пластиковый клапан надежно сохраняет влажность салфеток на долгое время. Экстракт алоэ вера бережно очищает кожу рук и дарит свежий аромат.",
+      "unitPrice": 8500,
+      "packPrice": 204000,
+      "packQuantity": 24,
+      "unitNameUz": "pachka",
+      "unitNameRu": "пачка",
+      "packTypeUz": "korobka",
+      "packTypeRu": "коробка",
+      "inStock": true,
+      "stockPacks": 75,
+      "lowStockThreshold": 15,
+      "isNew": true,
+      "isFeatured": true,
+      "isSpecialOffer": false,
+      "images": [
+        "/images/products/blt-wet120.jpg"
+      ],
+      "specs": [
+        {
+          "labelUz": "Soni",
+          "labelRu": "Количество",
+          "valueUz": "120 dona",
+          "valueRu": "120 шт"
+        },
+        {
+          "labelUz": "Klapan",
+          "labelRu": "Клапан",
+          "valueUz": "Plastik qayta yopiluvchi",
+          "valueRu": "Пластиковый многоразовый"
+        },
+        {
+          "labelUz": "Qadoq",
+          "labelRu": "Упаковка",
+          "valueUz": "1 korobka = 24 pachka",
+          "valueRu": "1 коробка = 24 пачки"
+        }
+      ],
+      "updatedAt": "2026-11-16T11:24:00.000Z"
+    },
+    {
+      "id": "prod-fry-900",
+      "slug": "fairy-limon-idish-tovoq-yuvish-geli-900-ml",
+      "sku": "FRY-900",
+      "categoryId": "cat-maishiy-kimyo",
+      "nameUz": "Fairy Limon Idish-Tovoq Yuvish Geli - 900 ml",
+      "nameRu": "Fairy Лимон Гель для мытья посуды - 900 мл",
+      "descriptionUz": "Qalin ko‘pik formulasi sovuq suvda ham eng qotib qolgan yog‘larni bir zumda eritadi. Kam miqdorda sarflanib, idishlarni tiniq va yaltiroq qilib yuvadi.",
+      "descriptionRu": "Густая активная формула мгновенно расщепляет даже застарелый жир в холодной воде. Экономичен в расходе, оставляет посуду безупречно чистой и блестящей.",
+      "unitPrice": 24000,
+      "packPrice": 288000,
+      "packQuantity": 12,
+      "unitNameUz": "dona",
+      "unitNameRu": "шт",
+      "packTypeUz": "blok",
+      "packTypeRu": "блок",
+      "inStock": true,
+      "stockPacks": 50,
+      "lowStockThreshold": 10,
+      "isNew": false,
+      "isFeatured": true,
+      "isSpecialOffer": false,
+      "images": [
+        "/images/products/fry-900.jpg"
+      ],
+      "specs": [
+        {
+          "labelUz": "Hajmi",
+          "labelRu": "Объем",
+          "valueUz": "900 ml",
+          "valueRu": "900 мл"
+        },
+        {
+          "labelUz": "Ifori",
+          "labelRu": "Аромат",
+          "valueUz": "Limon",
+          "valueRu": "Лимон"
+        },
+        {
+          "labelUz": "Qadoq",
+          "labelRu": "Упаковка",
+          "valueUz": "1 blok = 12 dona",
+          "valueRu": "1 блок = 12 шт"
+        }
+      ],
+      "updatedAt": "2026-11-16T11:24:00.000Z"
+    },
+    {
+      "id": "prod-hrc-j150",
+      "slug": "horeca-jumbo-tualet-qogozi-150-metr-2-qavatli",
+      "sku": "HRC-J150",
+      "categoryId": "cat-horeca",
+      "nameUz": "HoReCa Jumbo Tualet Qog‘ozi (150 metr, 2 qavatli)",
+      "nameRu": "Туалетная бумага HoReCa Jumbo (150 м, 2 слоя)",
+      "descriptionUz": "Katta o‘lchamdagi g‘altak jamoat joylari va biznes markazlar dispenserlariga to‘g‘ri keladi. Qalin 2 qavatli sellyuloza yumshoqlik va tejamkorlikni ta’minlaydi.",
+      "descriptionRu": "Большой рулон формата Джамбо разработан специально для диспенсеров в общественных местах. Двухслойная белая целлюлоза гарантирует мягкость и длительный срок службы.",
+      "unitPrice": 16500,
+      "packPrice": 198000,
+      "packQuantity": 12,
+      "unitNameUz": "rulon",
+      "unitNameRu": "рулон",
+      "packTypeUz": "blok",
+      "packTypeRu": "блок",
+      "inStock": true,
+      "stockPacks": 60,
+      "lowStockThreshold": 15,
+      "isNew": false,
+      "isFeatured": false,
+      "isSpecialOffer": false,
+      "images": [
+        "/images/products/hrc-j150.jpg"
+      ],
+      "specs": [
+        {
+          "labelUz": "Uzunligi",
+          "labelRu": "Длина намотки",
+          "valueUz": "150 metr",
+          "valueRu": "150 метров"
+        },
+        {
+          "labelUz": "Qavati",
+          "labelRu": "Слойность",
+          "valueUz": "2 qavatli",
+          "valueRu": "2 слоя"
+        },
+        {
+          "labelUz": "Qadoq",
+          "labelRu": "Упаковка",
+          "valueUz": "1 blok = 12 rulon",
+          "valueRu": "1 блок = 12 рулонов"
+        }
+      ],
+      "updatedAt": "2026-11-16T11:24:00.000Z"
+    },
+    {
+      "id": "prod-dlf-mop40",
+      "slug": "delfin-pol-yuvish-mikrofibra-nasadkasi-40-sm",
+      "sku": "DLF-MOP40",
+      "categoryId": "cat-lattalar",
+      "nameUz": "Delfin Pol Yuvish Mikrofibra Nasadkasi (40 sm)",
+      "nameRu": "Насадка для швабры из микрофибры Delfin (40 см)",
+      "descriptionUz": "Chuqur relyefli mikrofibra pol yuzasidagi kirlarni qirib oladi va suv dog‘larini qoldirmaydi. Kafe, laminat va linoleum pollarni professional darajada yuvish uchun mos.",
+      "descriptionRu": "Рельефная микрофибра захватывает даже въевшуюся грязь и не оставляет разводов на полу. Подходит для профессионального мытья плитки, паркета, ламината и линолеума.",
+      "unitPrice": 19000,
+      "packPrice": 475000,
+      "packQuantity": 25,
+      "unitNameUz": "dona",
+      "unitNameRu": "шт",
+      "packTypeUz": "paket",
+      "packTypeRu": "пакет",
+      "inStock": true,
+      "stockPacks": 40,
+      "lowStockThreshold": 10,
+      "isNew": true,
+      "isFeatured": false,
+      "isSpecialOffer": false,
+      "images": [
+        "/images/products/dlf-mop40.jpg"
+      ],
+      "specs": [
+        {
+          "labelUz": "O‘lchami",
+          "labelRu": "Размер",
+          "valueUz": "40 sm (cho‘ntakli)",
+          "valueRu": "40 см (с карманами)"
+        },
+        {
+          "labelUz": "Materiali",
+          "labelRu": "Материал",
+          "valueUz": "Relyefli mikrofibra",
+          "valueRu": "Рельефная микрофибра"
+        },
+        {
+          "labelUz": "Qadoq",
+          "labelRu": "Упаковка",
+          "valueUz": "1 paket = 25 dona",
+          "valueRu": "1 пакет = 25 шт"
+        }
+      ],
+      "updatedAt": "2026-11-16T11:24:00.000Z"
+    },
+    {
       "id": "prod-1794799367010",
       "slug": "belizna-maya-max-lemon-1-litr",
       "sku": "BLZ-MAYA-1000",
-      "categoryId": "cat-1794799084416",
+      "categoryId": "cat-maishiy-kimyo",
       "nameUz": "Belizna Maya MAX Lemon - 1 litr",
       "nameRu": "Белизна Maya MAX Lemon - 1 литр",
       "descriptionUz": "Kiyim va yuzalarni oqartirish va tozalash uchun. Limon hidi bilan. Dog'larni ketkazadi, matoni oqartiradi, yoqimsiz hidni yo'qotadi. Uy va professional tozalash uchun mos.",
@@ -49,7 +549,7 @@
       "inStock": true,
       "stockPacks": 20,
       "lowStockThreshold": 20,
-      "isNew": true,
+      "isNew": false,
       "isFeatured": false,
       "isSpecialOffer": false,
       "images": [
