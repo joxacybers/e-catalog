@@ -5,12 +5,14 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import type { SiteSettings } from '@/types/catalog';
 import { useLanguage } from '@/context/LanguageContext';
+import { useCart } from '@/context/CartContext';
 import { l } from '@/lib/i18n';
 import { buildTelegramUrl, formatPhoneHref } from '@/lib/helpers';
 import { M3Icon } from './m3/MaterialWebLoader';
 
 export function Navbar({ settings }: { settings: Omit<SiteSettings, 'adminPin'> }) {
   const { lang, setLang, t } = useLanguage();
+  const { totalUniqueItems, openCart } = useCart();
   const pathname = usePathname();
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
@@ -126,6 +128,22 @@ export function Navbar({ settings }: { settings: Omit<SiteSettings, 'adminPin'> 
               </button>
             </div>
 
+            {/* Cart Button (Desktop) */}
+            <button
+              type="button"
+              onClick={openCart}
+              className="relative inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full bg-[#edf2fa] hover:bg-[#d3e3fd] text-[#001d35] active:scale-95 text-xs font-semibold transition-all cursor-pointer shadow-2xs border border-[#c4c7c5]/60"
+              title={lang === 'uz' ? 'Buyurtma savati' : 'Корзина'}
+            >
+              <M3Icon name="shopping_cart" className="text-[17px] text-[#0b57d0]" />
+              <span className="hidden lg:inline">{lang === 'uz' ? 'Savat' : 'Корзина'}</span>
+              {totalUniqueItems > 0 && (
+                <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#0b57d0] px-1.5 text-[10px] font-bold text-white">
+                  {totalUniqueItems}
+                </span>
+              )}
+            </button>
+
             <div className="hidden xl:inline-flex">
               <a
                 href={formatPhoneHref(settings.phonePrimary)}
@@ -137,8 +155,22 @@ export function Navbar({ settings }: { settings: Omit<SiteSettings, 'adminPin'> 
             </div>
           </div>
 
-          {/* Mobile Language Switcher only */}
-          <div className="flex items-center md:hidden">
+          {/* Mobile Right Controls: Cart + Language Switcher */}
+          <div className="flex items-center gap-2 md:hidden">
+            <button
+              type="button"
+              onClick={openCart}
+              className="relative flex h-8 w-8 items-center justify-center rounded-full bg-[#edf2fa] text-[#0b57d0] active:scale-95 transition-all cursor-pointer border border-[#c4c7c5]/60"
+              aria-label="Savat"
+            >
+              <M3Icon name="shopping_cart" className="text-[18px]" />
+              {totalUniqueItems > 0 && (
+                <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#0b57d0] px-1 text-[9px] font-black text-white">
+                  {totalUniqueItems}
+                </span>
+              )}
+            </button>
+
             <div className="inline-flex rounded-full border border-[#c4c7c5] bg-white p-0.5">
               <button
                 type="button"

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { SiteSettings } from '@/types/catalog';
 import { useLanguage } from '@/context/LanguageContext';
+import { useCart } from '@/context/CartContext';
 import { buildTelegramUrl } from '@/lib/helpers';
 import { M3Icon } from './m3/MaterialWebLoader';
 
@@ -14,7 +15,8 @@ export function MobileBottomNav({
   settings: Omit<SiteSettings, 'adminPin'>;
 }) {
   const pathname = usePathname();
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+  const { totalUniqueItems, openCart } = useCart();
 
   // If on admin or product detail with its own fixed dock, we adjust or show
   const isProductDetail = pathname.startsWith('/product/');
@@ -34,7 +36,7 @@ export function MobileBottomNav({
       className="no-print fixed bottom-0 left-0 right-0 z-40 block sm:hidden bg-white/95 backdrop-blur-md border-t border-[#e0e2ec] shadow-[0_-4px_16px_rgba(0,0,0,0.06)]"
       style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 6px)' }}
     >
-      <div className="grid grid-cols-4 items-center px-2 py-1.5 text-center">
+      <div className="grid grid-cols-5 items-center px-1.5 py-1.5 text-center">
         {/* Katalog */}
         <Link
           href="/"
@@ -46,13 +48,13 @@ export function MobileBottomNav({
           }`}
         >
           <div
-            className={`flex h-8 w-12 items-center justify-center rounded-full transition-all duration-200 ${
+            className={`flex h-8 w-11 items-center justify-center rounded-full transition-all duration-200 ${
               isCatalogActive
                 ? 'bg-[#c2e7ff] text-[#001d35]'
                 : 'bg-transparent text-[#444746]'
             }`}
           >
-            <M3Icon name="inventory_2" className="text-[20px]" />
+            <M3Icon name="inventory_2" className="text-[19px]" />
           </div>
           <span className={`text-[10px] ${isCatalogActive ? 'font-bold' : 'font-medium'}`}>
             {t.nav.catalog}
@@ -70,18 +72,37 @@ export function MobileBottomNav({
           }`}
         >
           <div
-            className={`flex h-8 w-12 items-center justify-center rounded-full transition-all duration-200 ${
+            className={`flex h-8 w-11 items-center justify-center rounded-full transition-all duration-200 ${
               isPriceListActive
                 ? 'bg-[#c2e7ff] text-[#001d35]'
                 : 'bg-transparent text-[#444746]'
             }`}
           >
-            <M3Icon name="table_chart" className="text-[20px]" />
+            <M3Icon name="table_chart" className="text-[19px]" />
           </div>
           <span className={`text-[10px] ${isPriceListActive ? 'font-bold' : 'font-medium'}`}>
             {t.nav.priceList}
           </span>
         </Link>
+
+        {/* Savat (Cart) */}
+        <button
+          type="button"
+          onClick={openCart}
+          className="relative flex flex-col items-center justify-center gap-0.5 py-1 text-[#0b57d0] transition-all duration-150 active:scale-95 cursor-pointer"
+        >
+          <div className="relative flex h-8 w-11 items-center justify-center rounded-full bg-[#edf2fa] text-[#0b57d0]">
+            <M3Icon name="shopping_cart" className="text-[19px]" />
+            {totalUniqueItems > 0 && (
+              <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-rose-500 px-1 text-[9px] font-black text-white">
+                {totalUniqueItems}
+              </span>
+            )}
+          </div>
+          <span className="text-[10px] font-semibold">
+            {lang === 'uz' ? 'Savat' : 'Корзина'}
+          </span>
+        </button>
 
         {/* Aloqa */}
         <Link
@@ -94,13 +115,13 @@ export function MobileBottomNav({
           }`}
         >
           <div
-            className={`flex h-8 w-12 items-center justify-center rounded-full transition-all duration-200 ${
+            className={`flex h-8 w-11 items-center justify-center rounded-full transition-all duration-200 ${
               isContactActive
                 ? 'bg-[#c2e7ff] text-[#001d35]'
                 : 'bg-transparent text-[#444746]'
             }`}
           >
-            <M3Icon name="call" className="text-[20px]" />
+            <M3Icon name="call" className="text-[19px]" />
           </div>
           <span className={`text-[10px] ${isContactActive ? 'font-bold' : 'font-medium'}`}>
             {t.nav.contact}
@@ -114,7 +135,7 @@ export function MobileBottomNav({
           rel="noopener noreferrer"
           className="flex flex-col items-center justify-center gap-0.5 py-1 text-[#0b57d0] transition-all duration-150 active:scale-95"
         >
-          <div className="flex h-8 w-12 items-center justify-center rounded-full bg-[#e8f0fe] text-[#0b57d0]">
+          <div className="flex h-8 w-11 items-center justify-center rounded-full bg-[#e8f0fe] text-[#0b57d0]">
             <M3Icon name="send" className="text-[19px]" />
           </div>
           <span className="text-[10px] font-semibold">Telegram</span>

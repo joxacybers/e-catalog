@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { Category, Product, SiteSettings } from '@/types/catalog';
 import { useLanguage } from '@/context/LanguageContext';
+import { useCart } from '@/context/CartContext';
 import { formatNumber, formatPrice, interpolate, l } from '@/lib/i18n';
 import {
   buildProductTelegramMessage,
@@ -24,6 +25,7 @@ export function ProductCard({
   settings: Omit<SiteSettings, 'adminPin'>;
 }) {
   const { lang, t } = useLanguage();
+  const { addItem, updatePacks, getItemQuantity, openCart } = useCart();
   const router = useRouter();
   const [shareOpen, setShareOpen] = useState(false);
   const name = l(lang, product.nameUz, product.nameRu);
@@ -31,6 +33,7 @@ export function ProductCard({
   const packType = l(lang, product.packTypeUz, product.packTypeRu);
   const stockState = getStockState(product);
   const totalUnitsInStock = product.stockPacks * product.packQuantity;
+  const quantityInCart = getItemQuantity(product.id);
 
   const telegramHref = buildTelegramUrl(
     settings,
@@ -160,6 +163,73 @@ export function ProductCard({
               {formatPrice(product.packPrice, lang)}
             </span>
           </div>
+        </div>
+
+        {/* Wholesale Order Stepper / [+] Add button */}
+        <div className="mt-2.5 w-full min-w-0">
+          {quantityInCart === 0 ? (
+            <button
+              type="button"
+              disabled={stockState === 'out_of_stock'}
+              onClick={(e) => {
+                e.preventDefault();
+                addItem(product, product.variants?.[0] || null, 1);
+              }}
+              className="w-full inline-flex items-center justify-center gap-1.5 h-9 px-3 rounded-full bg-[#edf2fa] hover:bg-[#d3e3fd] text-[#001d35] active:scale-98 text-xs font-semibold transition-all cursor-pointer shadow-2xs border border-[#c4c7c5]/60 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <M3Icon name="add" className="text-[17px] text-[#0b57d0]" />
+              <span>
+                {lang === 'uz'
+                  ? `Savatga qo‘shish (1 ${packType})`
+                  : `В корзину (1 ${packType})`}
+              </span>
+            </button>
+          ) : (
+            <div className="flex items-center justify-between rounded-full bg-[#c2e7ff] p-0.5 border border-[#0b57d0]/40 shadow-2xs">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const key = `${product.id}__${product.variants?.[0]?.id || 'default'}`;
+                  updatePacks(key, -1);
+                }}
+                className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white text-[#001d35] hover:bg-white/80 active:scale-90 transition-all cursor-pointer shadow-2xs"
+                title="Kamaytirish"
+              >
+                <M3Icon name="remove" className="text-[15px]" />
+              </button>
+
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  openCart();
+                }}
+                className="flex-1 flex flex-col items-center justify-center px-1 text-center cursor-pointer hover:opacity-80"
+                title="Savatni ko'rish"
+              >
+                <div className="text-xs font-bold text-[#001d35] leading-tight">
+                  {quantityInCart} {packType} ({formatNumber(quantityInCart * product.packQuantity)} {unitName})
+                </div>
+                <div className="text-[10px] font-semibold text-[#0b57d0] leading-tight">
+                  {formatPrice(quantityInCart * product.packPrice, lang)}
+                </div>
+              </button>
+
+              <button
+                type="button"
+                disabled={stockState === 'out_of_stock' || (product.stockPacks > 0 && quantityInCart >= product.stockPacks)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  addItem(product, product.variants?.[0] || null, 1);
+                }}
+                className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-[#0b57d0] text-white hover:bg-[#0842a0] active:scale-90 transition-all cursor-pointer shadow-2xs disabled:opacity-50"
+                title="Ko'paytirish"
+              >
+                <M3Icon name="add" className="text-[15px]" />
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Material Design 3 Action Buttons - Pinned to bottom of the card on the same line */}

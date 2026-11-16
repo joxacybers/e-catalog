@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import type { Category, Product, SiteSettings } from '@/types/catalog';
 import { useLanguage } from '@/context/LanguageContext';
+import { useCart } from '@/context/CartContext';
 import { formatNumber, formatPrice, interpolate, l } from '@/lib/i18n';
 import {
   buildProductTelegramMessage,
@@ -28,10 +29,12 @@ export function ProductDetailClient({
   settings: Omit<SiteSettings, 'adminPin'>;
 }) {
   const { lang, t } = useLanguage();
+  const { addItem, getItemQuantity, openCart } = useCart();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const [shareOpen, setShareOpen] = useState(false);
+  const [orderQty, setOrderQty] = useState(1);
   const [selectedVariantId, setSelectedVariantId] = useState<string | null>(
     product.variants?.[0]?.id || null
   );
@@ -254,6 +257,68 @@ export function ProductDetailClient({
               </div>
             </div>
 
+            {/* Wholesale Quantity Stepper & Add to Cart Section */}
+            <div className="rounded-[18px] sm:rounded-[20px] bg-[#f8fafd] p-3.5 sm:p-4 border border-[#e0e2ec] flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-semibold text-[#1f1f1f]">
+                  {lang === 'uz' ? 'Qadoq soni:' : 'Количество:'}
+                </span>
+                <div className="inline-flex items-center rounded-full border border-[#c4c7c5] bg-white p-0.5 shadow-2xs">
+                  <button
+                    type="button"
+                    onClick={() => setOrderQty((q) => Math.max(1, q - 1))}
+                    className="flex h-8 w-8 items-center justify-center rounded-full text-[#444746] hover:bg-[#edf2fa] hover:text-[#1f1f1f] active:scale-90 transition-all cursor-pointer"
+                  >
+                    <M3Icon name="remove" className="text-[16px]" />
+                  </button>
+                  <span className="px-3 font-bold text-sm text-[#1f1f1f] min-w-[36px] text-center">
+                    {orderQty}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setOrderQty((q) => q + 1)}
+                    className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0b57d0] text-white hover:bg-[#0842a0] active:scale-90 transition-all cursor-pointer"
+                  >
+                    <M3Icon name="add" className="text-[16px]" />
+                  </button>
+                </div>
+                <span className="text-xs text-[#747775]">
+                  {packType} ({formatNumber(orderQty * product.packQuantity)} {unitName})
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <div className="text-right">
+                  <div className="text-[10px] text-[#747775]">
+                    {lang === 'uz' ? 'Jami summa:' : 'Итого:'}
+                  </div>
+                  <div className="text-sm sm:text-base font-bold text-[#0b57d0]">
+                    {formatPrice(orderQty * product.packPrice, lang)}
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  disabled={stockState === 'out_of_stock'}
+                  onClick={() => {
+                    addItem(product, selectedVariant, orderQty);
+                  }}
+                  className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-full bg-[#0b57d0] text-white hover:bg-[#0842a0] active:scale-95 text-xs sm:text-sm font-semibold transition-all shadow-md cursor-pointer disabled:opacity-50"
+                >
+                  <M3Icon name="add_shopping_cart" className="text-[18px]" />
+                  <span>
+                    {getItemQuantity(product.id, selectedVariant?.id) > 0
+                      ? lang === 'uz'
+                        ? `Yana qo‘shish (+${orderQty})`
+                        : `Добавить (+${orderQty})`
+                      : lang === 'uz'
+                      ? 'Savatga qo‘shish'
+                      : 'В корзину'}
+                  </span>
+                </button>
+              </div>
+            </div>
+
             {/* Desktop Action Buttons */}
             <div className="hidden sm:flex flex-wrap gap-2.5 sm:gap-3 pt-1">
               <a
@@ -368,6 +433,18 @@ export function ProductDetailClient({
 
               {/* Action Buttons: Telegramdan so'rash, Telefon, Ulashish */}
               <div className="flex items-center gap-2 sm:gap-3 flex-1 justify-end min-w-0">
+                {/* Quick Add to Cart button */}
+                <button
+                  type="button"
+                  disabled={stockState === 'out_of_stock'}
+                  onClick={() => addItem(product, selectedVariant, 1)}
+                  className="inline-flex items-center justify-center gap-1.5 h-11 px-3 sm:px-4 rounded-full bg-[#edf2fa] text-[#001d35] hover:bg-[#d3e3fd] border border-[#c4c7c5]/60 active:scale-95 text-xs sm:text-sm font-semibold transition-all shadow-2xs cursor-pointer shrink-0 disabled:opacity-50"
+                  title={lang === 'uz' ? 'Savatga qo‘shish' : 'В корзину'}
+                >
+                  <M3Icon name="add" className="text-[18px] text-[#0b57d0]" />
+                  <span className="hidden sm:inline">{lang === 'uz' ? 'Savatga' : 'В корзину'}</span>
+                </button>
+
                 {/* Telegram ask / order button */}
                 <a
                   href={directTelegramHref}

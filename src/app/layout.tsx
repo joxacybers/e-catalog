@@ -3,12 +3,15 @@ import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { LanguageProvider } from '@/context/LanguageContext';
+import { CartProvider } from '@/context/CartContext';
 import { MaterialWebLoader } from '@/components/m3/MaterialWebLoader';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { MobileBottomNav } from '@/components/MobileBottomNav';
 import { NavigationProgressBar } from '@/components/NavigationProgressBar';
 import { PageTransition } from '@/components/PageTransition';
+import { FloatingCartButton } from '@/components/FloatingCartButton';
+import { OrderCartModal } from '@/components/OrderCartModal';
 import { getCatalogData } from '@/lib/db';
 
 const inter = Inter({
@@ -56,15 +59,19 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col bg-[#f8fafd] text-[#1f1f1f] font-sans antialiased">
         <MaterialWebLoader />
         <LanguageProvider>
-          <Suspense fallback={null}>
-            <NavigationProgressBar />
-          </Suspense>
-          <Navbar settings={publicSettings} />
-          <main className="flex-1 pb-16 sm:pb-0 flex flex-col w-full min-w-0 max-w-full overflow-x-hidden">
-            <PageTransition>{children}</PageTransition>
-          </main>
-          <Footer settings={publicSettings} />
-          <MobileBottomNav settings={publicSettings} />
+          <CartProvider>
+            <Suspense fallback={null}>
+              <NavigationProgressBar />
+            </Suspense>
+            <Navbar settings={publicSettings} />
+            <main className="flex-1 pb-16 sm:pb-0 flex flex-col w-full min-w-0 max-w-full overflow-x-hidden">
+              <PageTransition>{children}</PageTransition>
+            </main>
+            <Footer settings={publicSettings} />
+            <MobileBottomNav settings={publicSettings} />
+            <FloatingCartButton />
+            <OrderCartModal settings={publicSettings} />
+          </CartProvider>
         </LanguageProvider>
       </body>
     </html>
