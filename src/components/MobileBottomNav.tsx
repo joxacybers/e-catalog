@@ -38,6 +38,7 @@ export function MobileBottomNav({
         {/* Katalog */}
         <Link
           href="/"
+          prefetch={true}
           className={`flex flex-col items-center justify-center gap-0.5 py-1 transition-all duration-150 active:scale-95 ${
             isCatalogActive
               ? 'text-[#041e49]'
@@ -61,6 +62,7 @@ export function MobileBottomNav({
         {/* Prays-list */}
         <Link
           href="/price-list"
+          prefetch={true}
           className={`flex flex-col items-center justify-center gap-0.5 py-1 transition-all duration-150 active:scale-95 ${
             isPriceListActive
               ? 'text-[#041e49]'
@@ -84,6 +86,7 @@ export function MobileBottomNav({
         {/* Aloqa */}
         <Link
           href="/contact"
+          prefetch={true}
           className={`flex flex-col items-center justify-center gap-0.5 py-1 transition-all duration-150 active:scale-95 ${
             isContactActive
               ? 'text-[#041e49]'

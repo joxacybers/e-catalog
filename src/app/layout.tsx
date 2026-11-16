@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
@@ -6,6 +7,8 @@ import { MaterialWebLoader } from '@/components/m3/MaterialWebLoader';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { MobileBottomNav } from '@/components/MobileBottomNav';
+import { NavigationProgressBar } from '@/components/NavigationProgressBar';
+import { PageTransition } from '@/components/PageTransition';
 import { getCatalogData } from '@/lib/db';
 
 const inter = Inter({
@@ -41,8 +44,13 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col bg-[#f8fafd] text-[#1f1f1f] font-sans antialiased">
         <MaterialWebLoader />
         <LanguageProvider>
+          <Suspense fallback={null}>
+            <NavigationProgressBar />
+          </Suspense>
           <Navbar settings={publicSettings} />
-          <main className="flex-1 pb-16 sm:pb-0">{children}</main>
+          <main className="flex-1 pb-16 sm:pb-0 flex flex-col">
+            <PageTransition>{children}</PageTransition>
+          </main>
           <Footer settings={publicSettings} />
           <MobileBottomNav settings={publicSettings} />
         </LanguageProvider>

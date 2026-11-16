@@ -47,6 +47,7 @@ export function ProductCard({
       {/* Top M3 Tonal Image Container */}
       <Link
         href={`/product/${product.slug}`}
+        prefetch={true}
         className="relative block aspect-[4/3] overflow-hidden rounded-[16px] sm:rounded-[18px] bg-[#f3f6fc] p-2.5 sm:p-3"
       >
         <img
@@ -103,6 +104,7 @@ export function ProductCard({
 
         <Link
           href={`/product/${product.slug}`}
+          prefetch={true}
           className="line-clamp-2 text-sm sm:text-base font-semibold leading-snug text-[#1f1f1f] hover:text-[#0b57d0] transition-colors"
         >
           {name}

@@ -257,6 +257,7 @@ export function PriceListClient({
                   </div>
                   <Link
                     href={`/product/${product.slug}`}
+                    prefetch={true}
                     className="mt-1 block font-semibold text-xs sm:text-sm text-[#1f1f1f] hover:text-[#0b57d0] leading-snug line-clamp-2"
                   >
                     {name}
@@ -333,6 +334,7 @@ export function PriceListClient({
                     <td className="px-4 py-3">
                       <Link
                         href={`/product/${product.slug}`}
+                        prefetch={true}
                         className="font-medium text-[#1f1f1f] hover:text-[#0b57d0]"
                       >
                         {name}

@@ -332,6 +332,7 @@ export function SimpleCatalogView({
 
                       <Link
                         href={`/product/${product.slug}`}
+                        prefetch={true}
                         className="mt-1 block font-semibold text-sm text-[#1f1f1f] hover:text-[#0b57d0] leading-snug line-clamp-2"
                       >
                         {name}
@@ -430,6 +431,7 @@ export function SimpleCatalogView({
                             <div>
                               <Link
                                 href={`/product/${product.slug}`}
+                                prefetch={true}
                                 className="font-medium text-[#1f1f1f] hover:text-[#0b57d0]"
                               >
                                 {name}

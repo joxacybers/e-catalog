@@ -34,7 +34,7 @@ export function Navbar({ settings }: { settings: Omit<SiteSettings, 'adminPin'> 
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex h-16 items-center justify-between gap-3">
           {/* Brand */}
-          <Link href="/" className="flex items-center gap-2.5 shrink-0">
+          <Link href="/" prefetch={true} className="flex items-center gap-2.5 shrink-0 transition-transform active:scale-98">
             {settings.logoUrl ? (
               <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-2xl bg-white border border-[#e0e2ec] p-1 shadow-xs">
                 <img
@@ -87,9 +87,10 @@ export function Navbar({ settings }: { settings: Omit<SiteSettings, 'adminPin'> 
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`rounded-full px-3.5 py-2 text-sm font-medium transition-colors ${
+                    prefetch={true}
+                    className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-150 active:scale-95 cursor-pointer select-none ${
                       isActive
-                        ? 'bg-[#c2e7ff] text-[#001d35]'
+                        ? 'bg-[#c2e7ff] text-[#001d35] font-semibold shadow-2xs'
                         : 'text-[#444746] hover:bg-[#edf2fa] hover:text-[#1f1f1f]'
                     }`}
                   >
