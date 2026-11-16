@@ -254,7 +254,7 @@ export function ProductDetailClient({
           <h2 className="text-xl font-semibold text-[#1f1f1f]">
             {t.product.similarTitle}
           </h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
             {similarProducts.map((item) => (
               <ProductCard
                 key={item.id}

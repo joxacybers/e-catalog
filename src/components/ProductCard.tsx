@@ -43,7 +43,7 @@ export function ProductCard({
     .join(' • ');
 
   return (
-    <div className="group flex flex-col w-full min-w-0 max-w-full overflow-hidden rounded-[20px] sm:rounded-[24px] border border-[#c4c7c5]/60 bg-white p-3 sm:p-3.5 transition-all duration-200 hover:shadow-md">
+    <div className="group flex flex-col h-full w-full min-w-0 max-w-full overflow-hidden rounded-[20px] sm:rounded-[24px] border border-[#c4c7c5]/60 bg-white p-3 sm:p-3.5 transition-all duration-200 hover:shadow-md">
       {/* Top M3 Tonal Image Container */}
       <Link
         href={`/product/${product.slug}`}
@@ -105,17 +105,17 @@ export function ProductCard({
         <Link
           href={`/product/${product.slug}`}
           prefetch={true}
-          className="line-clamp-2 text-sm sm:text-base font-semibold leading-snug text-[#1f1f1f] hover:text-[#0b57d0] transition-colors break-words"
+          className="line-clamp-2 min-h-[2.5rem] sm:min-h-[2.75rem] text-sm sm:text-base font-semibold leading-snug text-[#1f1f1f] hover:text-[#0b57d0] transition-colors break-words"
         >
           {name}
         </Link>
 
-        {specsLine && (
-          <p className="mt-1 line-clamp-1 text-[11px] sm:text-xs text-[#444746] truncate">{specsLine}</p>
-        )}
+        <p className="mt-1 line-clamp-1 min-h-[1.125rem] text-[11px] sm:text-xs text-[#444746] truncate">
+          {specsLine || '\u00A0'}
+        </p>
 
         {/* Packaging & Exact Stock Line */}
-        <div className="mt-2 text-[11px] sm:text-xs text-[#444746] flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+        <div className="mt-2 min-h-[1.25rem] text-[11px] sm:text-xs text-[#444746] flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
           <span>1 {packType} = <strong className="text-[#1f1f1f]">{product.packQuantity} {unitName}</strong></span>
           <span className="text-[#747775]">•</span>
           {stockState === 'out_of_stock' ? (
@@ -150,8 +150,8 @@ export function ProductCard({
           </div>
         </div>
 
-        {/* Material Design 3 Action Buttons */}
-        <div className="mt-3 flex items-center gap-1.5 pt-1 w-full min-w-0">
+        {/* Material Design 3 Action Buttons - Pinned to bottom of the card on the same line */}
+        <div className="mt-auto pt-3 flex items-center gap-1.5 w-full min-w-0">
           <button
             type="button"
             onClick={() => router.push(`/product/${product.slug}`)}
